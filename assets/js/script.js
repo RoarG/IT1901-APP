@@ -1,4 +1,5 @@
 $(document).ready(function () {
-    var base = new Base._($);
-    Base.init();
+    var base = new Base();
+    base.init();
+    //console.log(base.init());
 });
