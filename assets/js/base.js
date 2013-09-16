@@ -23,7 +23,6 @@ function Base (jq) {
         
     // Setting token-value
     var temp_token = this.ls.getItem('api-token');
-    console.log(temp_token);
     if (temp_token != null && temp_token.length > 10) {
         this.token = temp_token;
     }
@@ -96,9 +95,16 @@ function Base (jq) {
                 headers: { 'cache-control': 'no-cache' },
                 dataType: 'json',
                 success: function(json) {
-                    console.log(this);
                     if (json.code == '200') {
+                        // Update content
                         self.animate.fadeIn(json.tpl.home.base); // TODO
+                        
+                        // Change title
+                        document.title = 'Sheep :: '+json.response.system_name;
+                        
+                        // Set notification-number & show
+                        $('#notifications a').html(json.response.notifications);
+                        $('#notifications').show();
                     }
                     else {
                         self.animate.fadeIn(json.tpl.login.base);
@@ -125,7 +131,13 @@ function Base (jq) {
                     
                     // Animating
                     self.animate.fadeIn(json.tpl.base);
-                    console.log(self.token);
+                    
+                    // Change title
+                    document.title = 'Sheep :: '+json.response.system_name;
+                    
+                    // Set notification-number & show
+                    $('#notifications a').html(json.response.notifications);
+                    $('#notifications').show();
                 }
                 else {
                     var $wrong_box = $('#login_wrong_pw');
