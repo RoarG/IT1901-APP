@@ -106,6 +106,7 @@ a {
     background-image: url('gfx/block-top-bg');
     border-radius: 6px 6px;
     text-align: center;
+    display: none;
 }
 #notifications a {
     line-height: 50px;
