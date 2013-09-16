@@ -38,26 +38,30 @@ var Base = {
     // Ajax
     //
     
-    ajax: { // TODO
-        call : function () {
-            //
-        },
-        tpl : function (tpl) {
-            //
+    ajax: (function () {
+        return {
+            call : function () {
+                //
+            },
+            tpl : function (tpl) {
+                //
+            }
         }
-    },
+    })(),
     
     //
     // Animations
     //
     
-    animate : {
-        fadeIn : function (html) {
-            $('#main').fadeOut(400,function () {
-                $('#main').html(html).fadeIn(400);
-            });
+    animate : (function () {
+        return {
+            fadeIn : function (html) {
+                $('#main').fadeOut(400,function () {
+                    $('#main').html(html).fadeIn(400);
+                });
+            }
         }
-    },
+    })(),
     
     //
     // INIT
@@ -89,7 +93,6 @@ var Base = {
                         console.log('lol?');
                     }
                     else {
-                        console.log('rr');
                         Base.animate.fadeIn(json.tpl.base);
                     }
                 }
