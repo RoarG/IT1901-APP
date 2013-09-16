@@ -11,6 +11,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 .clear { clear: both;}
 div { position: relative; }
 
+/*
+    Main
+*/
+
 body {
     font-family:Arial, Helvetica, sans-serif;
     color: #1C4094;
@@ -21,6 +25,10 @@ body {
     min-height: 960px;
     background-color: #fff;
     margin: 0 auto;
+}
+a {
+    color: #1C4094;
+    text-decoration: none;
 }
 
 /*
@@ -100,4 +108,20 @@ body {
 
 #login_wrong_pw {
     display: none;
+}
+
+/*
+    Home
+*/
+
+ul.home-list li {
+    font-size: 23px;
+    font-weight: bold;
+    list-style-position: outside;
+    padding-left: 52px;
+    padding-top: 32px;
+}
+ul.home-list li:before {
+    content: url('gfx/home-arrow.png');
+    padding-right: 5px;
 }
