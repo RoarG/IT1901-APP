@@ -22,7 +22,8 @@ function Base (jq) {
     this.ls = localStorage;
         
     // Setting token-value
-    var temp_token = localStorage.getItem('api-token');
+    var temp_token = this.ls.getItem('api-token');
+    console.log(temp_token);
     if (temp_token != null && temp_token.length > 10) {
         this.token = temp_token;
     }
@@ -32,7 +33,7 @@ function Base (jq) {
     // Ajax
     //
         
-    this.ajax = function () {
+    /*this.ajax = function () {
         call : function () {
             //
         },
@@ -40,8 +41,17 @@ function Base (jq) {
             //
         }
     }
-    };
-        
+    };*/
+    
+    //
+    // Token
+    //
+    
+    this.setToken = function (t) {
+        this.token = t;
+        this.ls.setItem('api-token',t);
+    }
+      
     //
     // Animations
     //
@@ -66,7 +76,7 @@ function Base (jq) {
         
     this.init = function () {
         var self = this;
-        if (this.token != null) {
+        if (this.token == null) {
             // No token sat, display login-form
             $.ajax ({
                 url: 'api/?tpl=login',
@@ -81,7 +91,7 @@ function Base (jq) {
         else {
             // We have a token, validate it
             $.ajax ({
-                url: 'api/auth/validate?method=get&access_token='+this.token+'&tpl=login',
+                url: 'api/auth/validate?method=get&access_token='+this.token+'&tpl=login,home',
                 cache: false,
                 headers: { 'cache-control': 'no-cache' },
                 dataType: 'json',
@@ -96,5 +106,34 @@ function Base (jq) {
                 }
             });
         }
-    };    
+    }; 
+    
+    this.login = function (ajax_data) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/auth?method=put&tpl=home',
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: ajax_data,
+            success: function(json) {
+                if (json.code == 200) {
+                    // Setting token
+                    self.setToken(json.response.access_token);
+                    
+                    // Animating
+                    self.animate.fadeIn(json.tpl.base);
+                    console.log(self.token);
+                }
+                else {
+                    var $wrong_box = $('#login_wrong_pw');
+                    if ($wrong_box.is(':hidden')) {
+                        $wrong_box.slideDown(400);
+                    }
+                }
+            }
+        });
+    };   
 }
