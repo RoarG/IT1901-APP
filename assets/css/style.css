@@ -79,7 +79,7 @@ a {
     font-weight: bold;
     height: 70px;
     line-height: 105px;
-    margin-left: 75px;
+    margin-left: 120px;
     text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
              0px 8px 13px rgba(0,0,0,0.1),
              0px 18px 23px rgba(0,0,0,0.1);
@@ -90,15 +90,35 @@ a {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     list-style: none outside none;
-    padding-bottom: 32px;
-    width: 531px;
-    padding-top: 25px;
-    padding-left: 25px;
-    padding-right: 25px;
+    width: 581px;
 }
 
 /*
-    Init
+    Notification
+*/
+
+#notifications {
+    position: absolute;
+    bottom: 21px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-image: url('gfx/block-top-bg');
+    border-radius: 6px 6px;
+    text-align: center;
+}
+#notifications a {
+    line-height: 50px;
+    display: block;
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+             0px 8px 13px rgba(0,0,0,0.1),
+             0px 18px 23px rgba(0,0,0,0.1);
+}
+
+/*
+    Init - TODO
 */
 
 
@@ -114,14 +134,37 @@ a {
     Home
 */
 
+.block-top.block-button {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.block-top.block-button h2 a{
+    color: #fff;
+}
 ul.home-list li {
-    font-size: 23px;
+    font-size: 27px;
     font-weight: bold;
     list-style-position: outside;
-    padding-left: 52px;
-    padding-top: 32px;
+    height: 105px;
+    line-height: 103px;
+    display: block;
+    border-bottom: 1px solid #8CC7ED;
+    border-top: 1px solid #fff;
+    position: relative;
 }
-ul.home-list li:before {
-    content: url('gfx/home-arrow.png');
-    padding-right: 5px;
+ul.home-list li:first-child {
+    border-top: none;
+}
+ul.home-list li:last-child {
+    border-bottom: none;
+}
+ul.home-list li:after {
+    content: url('gfx/home-arrow2.png');
+    position: absolute;
+    right: 25px;
+    top: 25px;
+}
+ul.home-list li a {
+    display: block;
+    margin-left: 75px;
 }
