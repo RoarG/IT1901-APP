@@ -92,3 +92,12 @@ body {
 /*
     Init
 */
+
+
+/*
+    Login
+*/
+
+#login_wrong_pw {
+    display: none;
+}
