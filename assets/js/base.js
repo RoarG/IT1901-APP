@@ -84,7 +84,7 @@ function Base (jq) {
                 headers: { 'cache-control': 'no-cache' },
                 dataType: 'json',
                 success: function(json) {
-                    self.animate.fadeIn(json.tpl.base);
+                    self.animate.fadeIn(json.tpl.login.base);
                 }
             });
         }
@@ -98,10 +98,10 @@ function Base (jq) {
                 success: function(json) {
                     console.log(this);
                     if (json.code == '200') {
-                        self.animate.fadeIn(json.tpl.home); // TODO
+                        self.animate.fadeIn(json.tpl.home.base); // TODO
                     }
                     else {
-                        self.animate.fadeIn(json.tpl.base);
+                        self.animate.fadeIn(json.tpl.login.base);
                     }
                 }
             });
