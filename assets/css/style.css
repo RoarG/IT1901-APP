@@ -41,6 +41,7 @@ body {
     background: url('gfx/nav-bg.png') repeat-x scroll 0 0 transparent;
     height: 81px;
     width: 640px;
+    margin-bottom: 20px;
 }
 
 /*
@@ -91,8 +92,3 @@ body {
 /*
     Init
 */
-
-#init-loader {
-    padding-top: 20px;
-    text-align: center;
-}

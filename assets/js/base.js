@@ -12,19 +12,96 @@ var Base = {
     //  Variables
     //
     
+    jQuery : null,
+    ls : null,
+    token : null,
+    
     //
     //  Constructor
     //
     
-    _ : function () {
-        console.log('called');
+    _ : function (jq) {
+        // Setting jQuery
+        this.jQuery = jq;
+        
+        // Accessing localStoreage
+        this.ls = localStorage;
+        
+        // Setting token-value
+        var temp_token = localStorage.getItem('api-token');
+        if (temp_token != null && temp_token.length > 10) {
+            this.token = temp_token;
+        }
+    },
+    
+    //
+    // Ajax
+    //
+    
+    ajax: { // TODO
+        call : function () {
+            //
+        },
+        tpl : function (tpl) {
+            //
+        }
+    },
+    
+    //
+    // Animations
+    //
+    
+    animate : {
+        fadeIn : function (html) {
+            $('#main').fadeOut(400,function () {
+                $('#main').html(html).fadeIn(400);
+            });
+        }
+    },
+    
+    //
+    // INIT
+    //
+    
+    init : function () {
+        if (this.token != null) {
+            // No token sat, display login-form
+            $.ajax ({
+                url: 'api/?tpl=login',
+                cache: false,
+                headers: { 'cache-control': 'no-cache' },
+                dataType: 'json',
+                success: function(json) {
+                    Base.animate.fadeIn(json.tpl.base);
+                }
+            });
+        }
+        else {
+            // We have a token, validate it
+            $.ajax ({
+                url: 'api/auth/validate?method=get&access_token='+this.token+'&tpl=login',
+                cache: false,
+                headers: { 'cache-control': 'no-cache' },
+                dataType: 'json',
+                success: function(json) {
+                    
+                    if (json.code == '200') {
+                        console.log('lol?');
+                    }
+                    else {
+                        console.log('rr');
+                        Base.animate.fadeIn(json.tpl.base);
+                    }
+                }
+            });
+        }
     },
     
     //
     //  LOGIN
     //
     
-    login: {
+    login : {
         
         //
         // Placeholder and stuff

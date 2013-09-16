@@ -1,4 +1,4 @@
 $(document).ready(function () {
-    var base = new Base._();
-    console.log(Base.login.test());
+    var base = new Base._($);
+    Base.init();
 });
