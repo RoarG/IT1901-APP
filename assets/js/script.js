@@ -10,6 +10,17 @@ $(document).ready(function () {
         return false;
     });
     
+    $('#notifications').on('click',function () {
+        $notification_window = $('#notification-window');
+        
+        if ($notification_window.is(':hidden')) {
+            $notification_window.show();
+        }
+        else {
+            $notification_window.hide();
+        }
+    });
+    
     // Initiate the entire thingy!
     base.init();
 });
