@@ -130,7 +130,7 @@ function Base (jq) {
                     self.setToken(json.response.access_token);
                     
                     // Animating
-                    self.animate.fadeIn(json.tpl.base);
+                    self.animate.fadeIn(json.tpl.home.base);
                     
                     // Change title
                     document.title = 'Sheep :: '+json.response.system_name;
