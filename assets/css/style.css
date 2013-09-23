@@ -232,8 +232,13 @@ input[type="text"], input[type="email"] {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
-.block-top.block-button h2 a{
+.block-top.block-button h2 {
     color: #fff;
+}
+.block-top.block-button .image-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 ul.home-list li {
     font-size: 27px;
@@ -245,6 +250,7 @@ ul.home-list li {
     border-bottom: 1px solid #8CC7ED;
     border-top: 1px solid #fff;
     position: relative;
+    padding-left: 75px;
 }
 ul.home-list li:first-child {
     border-top: none;
@@ -258,9 +264,10 @@ ul.home-list li:after {
     right: 25px;
     top: 25px;
 }
-ul.home-list li a {
-    display: block;
-    margin-left: 75px;
+ul.home-list .image-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 /*
