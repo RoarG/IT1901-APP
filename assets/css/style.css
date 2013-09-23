@@ -54,6 +54,20 @@ a {
 }
 
 /*
+    Back
+*/
+
+#back {
+    height: 69px;
+    width: 150px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: red;
+    display: none;
+}
+
+/*
     Main
 */
 
