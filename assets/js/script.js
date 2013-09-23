@@ -70,6 +70,18 @@ $(document).ready(function () {
     }
     
     //
+    // Sheep - Add
+    //
+    
+    $('#main').on('click','#home-add',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load the content
+        base.sheep_add();
+    });
+    
+    //
     // Init
     //
     
