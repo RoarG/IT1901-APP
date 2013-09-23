@@ -71,6 +71,13 @@ $(document).ready(function () {
         // Load the content
         base.sheep_all();
     });
+    $('#main').on('click','.sheep-single-view',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load the content
+        base.sheep_one($(this).data('id'));
+    });
     
     //
     // Sheep - Display on map

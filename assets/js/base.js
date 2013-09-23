@@ -12,7 +12,7 @@ function Base () {
     //  Variables
     //
     
-    this.ls,
+    this.ls = null,
     this.token = null,
     this.notifications = 0,
     this.disable_scrolling = false,
@@ -40,6 +40,14 @@ function Base () {
         this.token = t;
         this.ls.setItem('api-token',t);
     };
+    
+    //
+    // Back to login
+    //
+    
+    this.kick_out = function () {
+        // If something goes wrong, the user ends up here
+    }
     
     //
     // Notification
@@ -317,6 +325,28 @@ function Base () {
             }
         });
     };
+    this.sheep_one = function (id) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/sheep/'+id+'?method=get&tpl=sheep_single&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                if (json.code == 200) {
+                    // Generate the template
+                    var output = _.template(json.tpl.sheep_single.base,json.response);
+                                        
+                    // Run the animation
+                    self.animate.slideLeft(output, 3);
+                }
+                else {
+                    // Something went wrong!
+                }
+            }
+        });
+    }
     
     //
     // Sheep - Display on map
