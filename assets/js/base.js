@@ -12,7 +12,7 @@ function Base () {
     //  Variables
     //
     
-    this.ls, this.token = null, this.disable_scrolling = false;
+    this.ls, this.token = null, this.disable_scrolling = false, this.map;
     
     //
     //  Constructor
@@ -78,12 +78,22 @@ function Base () {
             // Decide if we should append or update html-content
             if (current_depth == depth) {
                 $('#main-'+depth).html(html);
-                $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400);
+                $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400,function () {
+                    // Execute callback if supplied
+                    if (typeof callback == 'function') {
+                        callback();
+                    }
+                });
                 display_depth = depth;
             }
             else {
                 $('#main').append('<div id="main-'+depth+'">'+html+'</div>').css('width',((current_depth+1)*640));
-                $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400);
+                $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400,function () {
+                    // Execute callback if supplied
+                    if (typeof callback == 'function') {
+                        callback();
+                    }
+                });
                 display_depth = current_depth + 1;
             }
             
@@ -94,11 +104,6 @@ function Base () {
             var $back = $('#back');
             if ($back.is(':hidden')) {
                 $back.show();
-            }
-            
-            // Execute callback if supplied
-            if (typeof callback == 'function') {
-                callback();
             }
         },
         slideRight : function (html, depth, destroy) {
@@ -262,7 +267,7 @@ function Base () {
                     // Run the animation
                     self.animate.slideLeft(json.tpl.sheep_map.base, 2, function () {
                         // Set the height of the map
-                        $('#map').css('height',$(window).height()).css('background-color','red');
+                        $('#map').css('height',$(window).height());
                         // Resize
                         self.animate.resizeMain();
                         
@@ -272,6 +277,27 @@ function Base () {
                         // Disable scrolling
                         disable_scrolling = true;
                         
+                        var pos = json.response.center;
+                        
+                        // Init Google Maps
+                        self.map = new google.maps.Map(document.getElementById("map"),{
+                            center: new google.maps.LatLng(pos.lat, pos.lng), 
+                            zoom: 9,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            streetViewControl: false});
+                        
+                        // Get all the sheeps and display them
+                        for (var i = 0; i < json.response.sheep.length; i++) {
+                            var current_sheep = json.response.sheep[i];
+                            var map_marker = new google.maps.Marker({
+                                map: self.map,
+                                position: new google.maps.LatLng(current_sheep.lat, current_sheep.lng),
+                                //icon: 'assets/css/gfx/kartikoner/overnatting.png',
+                                visible: true
+                            });
+                            
+                            // TODO, marker + infobox
+                        }
                     });
                 }
                 else {
@@ -281,9 +307,29 @@ function Base () {
         });
     }
     this.handle_scrolling = function (e) {
+        console.log(e);
         // Disable scrolling if displaying the map
         if (disable_scrolling) {
             e.preventDefault();
         }
+    }
+    
+    //
+    // Sheep - Add
+    //
+    
+    this.sheep_add = function () {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/?tpl=sheep_add',
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                // Run the animation
+                self.animate.slideLeft(json.tpl.sheep_add.base, 2);
+            }
+        });
     }
 }
