@@ -168,8 +168,18 @@ a {
 }
 
 /*
-    Init - TODO
+    Init
 */
+
+.block-init {
+    padding-top: 44px;
+    padding-bottom: 44px;
+    text-align: center;
+}
+.block-init img {
+    width: 200px;
+    height: 200px; 
+}
 
 
 /*
