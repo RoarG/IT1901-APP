@@ -105,6 +105,32 @@ a {
     list-style: none outside none;
     width: 581px;
 }
+.block input[type="text"], .block input[type="email"], .block input[type="password"] {
+    border: 1px solid #8CC7ED;
+    border-radius: 6px 6px 6px 6px;
+    color: #1C4094;
+    font-size: 22px;
+    height: 25px;
+    margin: 11px;
+    padding: 27px 23px;
+    width: 510px;
+}
+.block input[type="submit"] {
+    border: 1px solid #8CC7ED;
+    border-radius: 6px 6px 6px 6px;
+    cursor: pointer;
+    height: 81px;
+    padding-left: 22px;
+    padding-right: 22px;
+    color: #d4e5f5;
+    background-color: #1c3f93;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 11px;
+}
+.block input[type="submit"].right {
+    float: right;
+}
 
 /*
     Notification
@@ -152,7 +178,37 @@ a {
 
 #login_wrong_pw {
     display: none;
+    line-height: 29px;
+    font-size: 26px;
+    color: red;
 }
+#login_bottom_container {
+    width: 581px;
+    height: 104px;
+}
+#login_error_container {
+    width: 362px;
+    height: 85px;
+    float: left;
+    margin-top: 19px;
+    margin-left: 19px;
+}
+#login_button_container {
+    width: 200px;
+    height: 104px;
+    float: left;
+}
+/*
+input[type="text"], input[type="email"] {
+    border: 1px solid #8CC7ED;
+    border-radius: 6px 6px 6px 6px;
+    color: #1C4094;
+    font-size: 22px;
+    height: 25px;
+    margin-bottom: 18px;
+    padding: 27px 23px;
+    width: 534px;
+}*/
 
 /*
     Home
