@@ -395,4 +395,16 @@ function Base () {
             }
         });
     }
+    
+    //
+    // Admin - Edit
+    //
+    
+    //
+    // Admin - Alert
+    //
+    
+    //
+    // Admin - Log
+    //
 }

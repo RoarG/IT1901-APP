@@ -100,6 +100,42 @@ $(document).ready(function () {
     });
     
     //
+    // Admin - Edit
+    //
+    
+    $('#main').on('click','#admin-edit',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load the content
+        base.admin_edit();
+    });
+    
+    //
+    // Admin - Alert
+    //
+    
+    $('#main').on('click','#admin-alert',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load the content
+        base.admin_alert();
+    });
+    
+    //
+    // Admin - Log
+    //
+    
+    $('#main').on('click','#admin-log',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load the content
+        base.admin_log();
+    });
+    
+    //
     // Init
     //
     
