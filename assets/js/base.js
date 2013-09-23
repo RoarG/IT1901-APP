@@ -276,6 +276,9 @@ function Base () {
                 
                 // Stop fetching notifications every 20 seconds
                 self.notification_interval_handler(false);
+                
+                // Hide back-button
+                $('#back').hide();
             }
         });
     };
