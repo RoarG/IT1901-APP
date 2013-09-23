@@ -267,6 +267,7 @@ function Base () {
                         self.animate.resizeMain();
                         
                         // Scroll
+                        $('html, body').scrollTop(161);
                         
                         // Disable scrolling
                         disable_scrolling = true;
