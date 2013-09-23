@@ -6,7 +6,7 @@
  * 
 */
 
-function Base (jq) {
+function Base () {
     
     //
     //  Variables
@@ -27,6 +27,10 @@ function Base (jq) {
         this.token = temp_token;
     }
     
+    // Setting template-settins for underscore.js
+    /*_.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+    };*/
         
     //
     // Ajax
@@ -164,16 +168,12 @@ function Base (jq) {
             success: function(json) {
                 console.log(json);
                 if (json.code == 200) {
-                    // Build string (WIP)
-                    var string = '<ul>';
-                    for (var i = 0; i < json.response.sheep.length; i++) {
-                        var this_sheep = json.response.sheep[i];
-                        string += '<li>'+this_sheep.id+'</li>';
-                    }
+                    var template = _.template(json.tpl.sheep_all.base);
+                    var output = template({
+                        inner: _.template(json.tpl.sheep_all.row,{items:json.response.sheep})
+                    });
                     
-                    string += '</ul>';
-                    
-                    $('#main').append(json.tpl.sheep_all.base).css('width',($('#main > div').length*640));
+                    $('#main').append(output).css('width',($('#main > div').length*640));
                     $('#main').animate({marginLeft: '-=640px'},400);
                 }
                 else {

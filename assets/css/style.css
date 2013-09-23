@@ -25,6 +25,7 @@ body {
     min-height: 960px;
     background-color: #fff;
     margin: 0 auto;
+    overflow-x: hidden;
 }
 a {
     color: #1C4094;
