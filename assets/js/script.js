@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     //
     // Variables, objects and stuff we need
     //
@@ -42,7 +43,7 @@ $(document).ready(function () {
     });
     
     //
-    // Vis alle
+    // Sheep - Display all
     //
     
     $('#main').on('click','#home-all',function (e) {
@@ -50,8 +51,23 @@ $(document).ready(function () {
         e.preventDefault();
         
         // Load the content
-        base.sau_alle();
+        base.sheep_all();
     });
+    
+    //
+    // Sheep - Display on map
+    //
+    
+    $('#main').on('click','#home-map',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load the content
+        base.sheep_map();
+    });
+    document.ontouchstart = function (e) {
+        base.handle_scrolling(e);
+    }
     
     //
     // Init
