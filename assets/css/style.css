@@ -113,6 +113,14 @@ a {
     list-style: none outside none;
     width: 581px;
 }
+.block-body.block-text {
+    padding: 20px;
+    width: 542px;
+}
+.block-body.block-text p {
+    font-size: 20px;
+    line-height: 32px;
+}
 .block input[type="text"], .block input[type="email"], .block input[type="password"], .block input[type="number"]  {
     border: 1px solid #8CC7ED;
     border-radius: 6px 6px 6px 6px;
