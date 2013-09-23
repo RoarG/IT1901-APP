@@ -221,6 +221,34 @@ function Base () {
     };
     
     //
+    // Log out
+    //
+    
+    this.logout = function () {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/auth?method=get&tpl=login&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                // Setting token
+                self.setToken(null);
+                
+                // Animating
+                self.animate.fadeIn('#main',json.tpl.login.base, 1);
+                    
+                // Change title
+                document.title = 'Sheep';
+                
+                // Hide notification-number & show
+                $('#notifications').hide();
+            }
+        });
+    };
+    
+    //
     // Sheep - Display all
     //  
     

@@ -43,6 +43,24 @@ $(document).ready(function () {
     });
     
     //
+    // Log out
+    //
+    
+    $('#main').on('click','#log-out',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Ask if the user really wants to log out
+        var q = confirm('Sikker på at du vil logge ut?');
+        
+        // Check if he/she want to or not
+        if (q) {
+            // Send the request to the class
+            base.logout();
+        }
+    });
+    
+    //
     // Sheep - Display all
     //
     
