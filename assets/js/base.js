@@ -56,9 +56,9 @@ function Base (jq) {
     //
     
     this.animate = {
-        fadeIn : function (html) {
-            $('#main').fadeOut(400,function () {
-                $('#main').html(html).fadeIn(400);
+        fadeIn : function (target, html) {
+            $(target).fadeOut(400,function () {
+                $(target).html(html).fadeIn(400);
             });
         },
     };
@@ -83,7 +83,7 @@ function Base (jq) {
                 headers: { 'cache-control': 'no-cache' },
                 dataType: 'json',
                 success: function(json) {
-                    self.animate.fadeIn(json.tpl.login.base);
+                    self.animate.fadeIn('#main', json.tpl.login.base);
                 }
             });
         }
@@ -97,7 +97,7 @@ function Base (jq) {
                 success: function(json) {
                     if (json.code == '200') {
                         // Update content
-                        self.animate.fadeIn(json.tpl.home.base); // TODO
+                        self.animate.fadeIn('#main', json.tpl.home.base); // TODO
                         
                         // Change title
                         document.title = 'Sheep :: '+json.response.system_name;
@@ -107,7 +107,7 @@ function Base (jq) {
                         $('#notifications').show();
                     }
                     else {
-                        self.animate.fadeIn(json.tpl.login.base);
+                        self.animate.fadeIn('#main', json.tpl.login.base);
                     }
                 }
             });
