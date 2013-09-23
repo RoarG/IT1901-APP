@@ -21,6 +21,18 @@ $(document).ready(function () {
         }
     });
     
+    //
+    // Vis alle
+    //
+    
+    $('#main').on('click',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load the content
+        base.sau_alle();
+    });
+    
     // Initiate the entire thingy!
     base.init();
 });

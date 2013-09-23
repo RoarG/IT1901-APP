@@ -147,5 +147,29 @@ function Base (jq) {
                 }
             }
         });
-    };   
+    };
+    
+    //
+    // Lalal
+    //  
+    
+    this.sau_alle = function () {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/sheep?method=get&tpl=sheep-all&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                console.log(json);
+                if (json.code == 200) {
+                    // Build string
+                }
+                else {
+                    // Something went wrong!
+                }
+            }
+        });
+    }
 }
