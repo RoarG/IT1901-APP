@@ -157,14 +157,24 @@ function Base (jq) {
         var self = this;
         
         $.ajax ({
-            url: 'api/sheep?method=get&tpl=sheep-all&access_token='+self.token,
+            url: 'api/sheep?method=get&tpl=sheep_all&access_token='+self.token,
             cache: false,
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
             success: function(json) {
                 console.log(json);
                 if (json.code == 200) {
-                    // Build string
+                    // Build string (WIP)
+                    var string = '<ul>';
+                    for (var i = 0; i < json.response.sheep.length; i++) {
+                        var this_sheep = json.response.sheep[i];
+                        string += '<li>'+this_sheep.id+'</li>';
+                    }
+                    
+                    string += '</ul>';
+                    
+                    $('#main').append(json.tpl.sheep_all.base).css('width',($('#main > div').length*640));
+                    $('#main').animate({marginLeft: '-=640px'},400);
                 }
                 else {
                     // Something went wrong!
