@@ -25,7 +25,7 @@ $(document).ready(function () {
     // Vis alle
     //
     
-    $('#main').on('click',function (e) {
+    $('#main').on('click','#home-all',function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
