@@ -12,7 +12,12 @@ function Base () {
     //  Variables
     //
     
-    this.ls, this.token = null, this.notifications = 0, this.disable_scrolling = false, this.map = null, this.notification_interval = null;
+    this.ls,
+    this.token = null,
+    this.notifications = 0,
+    this.disable_scrolling = false,
+    this.map = null,
+    this.notification_interval = null;
     
     //
     //  Constructor
@@ -25,7 +30,7 @@ function Base () {
     var temp_token = this.ls.getItem('api-token');
     if (temp_token != null && temp_token.length > 10) {
         this.token = temp_token;
-    }
+    };
         
     //
     // Token
@@ -34,7 +39,7 @@ function Base () {
     this.setToken = function (t) {
         this.token = t;
         this.ls.setItem('api-token',t);
-    }
+    };
     
     //
     // Notification
@@ -74,7 +79,7 @@ function Base () {
             // Turn fetching off
             clearInterval(this.notification_interval);
         }
-    }
+    };
     
     //
     // Animations
@@ -155,7 +160,7 @@ function Base () {
         
         // Enable scrolling (if turned off)
         disable_scrolling = false;
-    }
+    };
     
     //
     // Init
@@ -311,7 +316,7 @@ function Base () {
                 }
             }
         });
-    }
+    };
     
     //
     // Sheep - Display on map
@@ -368,14 +373,14 @@ function Base () {
                 }
             }
         });
-    }
+    };
     this.handle_scrolling = function (e) {
         console.log(e);
         // Disable scrolling if displaying the map
         if (disable_scrolling) {
             e.preventDefault();
         }
-    }
+    };
     
     //
     // Sheep - Add
@@ -399,6 +404,8 @@ function Base () {
     //
     // Admin - Edit
     //
+    
+    
     
     //
     // Admin - Alert
