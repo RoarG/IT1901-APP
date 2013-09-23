@@ -201,7 +201,17 @@ ul.home-list li a {
     Animations
 */
 
-.main-block {
+#main > div {
     width: 640px;
     float: left;
+}
+
+/*
+    Map
+*/
+
+#map {
+    width: 640px;
+    display: block;
+    height: 320px;
 }
