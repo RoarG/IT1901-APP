@@ -107,6 +107,7 @@ function Base () {
         slideLeft : function (html, depth, callback) {
             // Check if the depth already exists
             var $obj = $('#main-'+depth);
+            var current_depth = $('#main > div').length;
             
             if ($obj.length > 0) {
                 // Object does exits
@@ -119,7 +120,7 @@ function Base () {
                 });
             }
             else {
-                $('#main').append('<div id="main-'+depth+'">'+html+'</div>').css('width',((depth+1)*640));
+                $('#main').append('<div id="main-'+depth+'">'+html+'</div>').css('width',((current_depth+1)*640));
                 $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400,function () {
                     // Execute callback if supplied
                     if (typeof callback == 'function') {
