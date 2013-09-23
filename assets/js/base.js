@@ -105,12 +105,11 @@ function Base () {
             });
         },
         slideLeft : function (html, depth, callback) {
-            // Get the current depth
-            var current_depth = $('#main > div').length;
-            var display_depth = 0;
+            // Check if the depth already exists
+            var $obj = $('#main-'+depth);
             
-            // Decide if we should append or update html-content
-            if (current_depth == depth) {
+            if ($obj.length > 0) {
+                // Object does exits
                 $('#main-'+depth).html(html);
                 $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400,function () {
                     // Execute callback if supplied
@@ -118,21 +117,19 @@ function Base () {
                         callback();
                     }
                 });
-                display_depth = depth;
             }
             else {
-                $('#main').append('<div id="main-'+depth+'">'+html+'</div>').css('width',((current_depth+1)*640));
+                $('#main').append('<div id="main-'+depth+'">'+html+'</div>').css('width',((depth+1)*640));
                 $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400,function () {
                     // Execute callback if supplied
                     if (typeof callback == 'function') {
                         callback();
                     }
                 });
-                display_depth = current_depth + 1;
             }
             
             // Set height for the container
-            $('#main').css('height',$('#main-'+display_depth).height());
+            $('#main').css('height',$('#main-'+depth).height());
             
             // Display back-button if it's hidden
             var $back = $('#back');
@@ -358,7 +355,7 @@ function Base () {
             success: function(json) {
                 if (json.code == 200) {
                     // Go back to the previous page
-                    this.sheep_all();
+                    self.sheep_all();
                 }
                 else {
                     // Something went wrong!
