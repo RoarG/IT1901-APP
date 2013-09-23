@@ -12,7 +12,7 @@ function Base () {
     //  Variables
     //
     
-    this.ls, this.token = null, this.disable_scrolling = false, this.map;
+    this.ls, this.token = null, this.notifications = 0, this.disable_scrolling = false, this.map = null, this.notification_interval = null;
     
     //
     //  Constructor
@@ -26,26 +26,7 @@ function Base () {
     if (temp_token != null && temp_token.length > 10) {
         this.token = temp_token;
     }
-    
-    // Setting template-settins for underscore.js
-    /*_.templateSettings = {
-        interpolate: /\{\{(.+?)\}\}/g
-    };*/
         
-    //
-    // Ajax
-    //
-        
-    /*this.ajax = function () {
-        call : function () {
-            //
-        },
-        tpl : function (tpl) {
-            //
-        }
-    }
-    };*/
-    
     //
     // Token
     //
@@ -54,7 +35,47 @@ function Base () {
         this.token = t;
         this.ls.setItem('api-token',t);
     }
-      
+    
+    //
+    // Notification
+    //
+    
+    this.notification_interval_handler = function (state) {
+        var self = this;
+        if (state) {
+            // Turn fetching on
+            this.notification_interval = setInterval(function () {
+                $.ajax ({
+                    url: 'api/notification/num?method=get&access_token='+self.token,
+                    cache: false,
+                    headers: { 'cache-control': 'no-cache' },
+                    dataType: 'json',
+                    success: function(json) {
+                        if (json.code == '200') {
+                            var new_notification_value = json.response.notifications;
+                            if (new_notification_value != self.notifications) {
+                                // Store new value
+                                self.notifications = new_notification_value;
+                                
+                                // Update displayed value
+                                $('#notifications a').html(new_notification_value);
+                                
+                                // Highlight?
+                            }
+                        }
+                        else {
+                            // Error here
+                        }
+                    }
+                });
+            },20000);
+        }
+        else {
+            // Turn fetching off
+            clearInterval(this.notification_interval);
+        }
+    }
+    
     //
     // Animations
     //
@@ -172,6 +193,10 @@ function Base () {
                         // Set notification-number & show
                         $('#notifications a').html(json.response.notifications);
                         $('#notifications').show();
+                        self.notifications = json.response.notifications;
+                        
+                        // Start fetching notifications every 20 seconds
+                        self.notification_interval_handler(true);
                     }
                     else {
                         self.animate.fadeIn('#main', json.tpl.login.base, 1);
@@ -209,6 +234,10 @@ function Base () {
                     // Set notification-number & show
                     $('#notifications a').html(json.response.notifications);
                     $('#notifications').show();
+                    self.notifications = json.response.notifications;
+                    
+                    // Start fetching notifications every 20 seconds
+                    self.notification_interval_handler(true);
                 }
                 else {
                     var $wrong_box = $('#login_wrong_pw');
@@ -244,6 +273,9 @@ function Base () {
                 
                 // Hide notification-number & show
                 $('#notifications').hide();
+                
+                // Stop fetching notifications every 20 seconds
+                self.notification_interval_handler(false);
             }
         });
     };
