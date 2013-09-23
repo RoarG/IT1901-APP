@@ -78,6 +78,19 @@ $(document).ready(function () {
         // Load the content
         base.sheep_one($(this).data('id'));
     });
+    $('#main').on('click','#sheep_single_delete',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Ask if the user really wants to log out
+        var q = confirm('Sikker på at du vil slette sau id #?');
+        
+        // Check if he/she want to or not
+        if (q) {
+            // Send the request to the class
+            base.sheep_one_delete($(this).data('id'));
+        }
+    });
     
     //
     // Sheep - Display on map

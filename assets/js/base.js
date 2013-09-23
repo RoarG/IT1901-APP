@@ -346,6 +346,25 @@ function Base () {
                 }
             }
         });
+    };
+    this.sheep_one_delete = function (id) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/sheep/'+id+'?method=delete&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                if (json.code == 200) {
+                    // Go back to the previous page
+                    this.sheep_all();
+                }
+                else {
+                    // Something went wrong!
+                }
+            }
+        });
     }
     
     //
