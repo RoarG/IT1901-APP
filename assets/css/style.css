@@ -59,12 +59,20 @@ a {
 
 #back {
     height: 69px;
-    width: 150px;
+    width: 200px;
     position: absolute;
     left: 0px;
     top: 0px;
-    background-color: red;
     display: none;
+    background: url('gfx/arrow-back.png') no-repeat scroll 0 center transparent;
+    margin-left: 30px;
+}
+#back h2 {
+    font-size: 23px;
+    font-weight: bold;
+    height: 69px;
+    line-height: 69px;
+    padding-left: 23px;
 }
 
 /*
@@ -208,17 +216,6 @@ a {
     height: 104px;
     float: left;
 }
-/*
-input[type="text"], input[type="email"] {
-    border: 1px solid #8CC7ED;
-    border-radius: 6px 6px 6px 6px;
-    color: #1C4094;
-    font-size: 22px;
-    height: 25px;
-    margin-bottom: 18px;
-    padding: 27px 23px;
-    width: 534px;
-}*/
 
 /*
     Home
