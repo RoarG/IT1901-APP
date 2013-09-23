@@ -1,16 +1,24 @@
 $(document).ready(function () {
-    // Load the base-object
+    //
+    // Variables, objects and stuff we need
+    //
+    
     var base = new Base();
     
-    // Login
-    $('#main').on('submit','#login_form',function () {
-        base.login($(this).serialize());
-        
-        // Return false to avoid the actual form from getting submitted
-        return false;
+    //
+    // Back-button
+    //
+    
+    $('#back').on('click',function () {
+        base.handleBack();
     });
     
+    //
+    // Notifications
+    //
+    
     $('#notifications').on('click',function () {
+        // Toggle show/hide on notification-window based on it's current state
         $notification_window = $('#notification-window');
         
         if ($notification_window.is(':hidden')) {
@@ -19,6 +27,18 @@ $(document).ready(function () {
         else {
             $notification_window.hide();
         }
+    });
+    
+    //
+    // Login
+    //
+    
+    $('#main').on('submit','#login_form',function () {
+        // Send the login-info to the base-class
+        base.login($(this).serialize());
+        
+        // Return false to avoid the actual form from getting submitted
+        return false;
     });
     
     //
@@ -33,6 +53,9 @@ $(document).ready(function () {
         base.sau_alle();
     });
     
-    // Initiate the entire thingy!
+    //
+    // Init
+    //
+    
     base.init();
 });

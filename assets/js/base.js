@@ -65,13 +65,42 @@ function Base () {
                 $(target).html(html).fadeIn(400);
             });
         },
+        slideLeft : function (html, depth) {
+            // Get the current depth
+            var current_depth = $('#main > div').length;
+            
+            // Decide if we should append or update html-content
+            if (current_depth == depth) {
+                $('#main-'+depth).html(html);
+                $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400);
+            }
+            else {
+                $('#main').append(html).css('width',((current_depth+1)*640));
+                $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400);
+            }
+            
+            // Display back-button if it's hidden
+            var $back = $('#back');
+            if ($back.is(':hidden')) {
+                $back.show();
+            }
+        },
+        slideRight : function (html, depth, destroy) {
+            //
+        }
     };
     
     //
-    // Templates
+    // Back-button
     //
     
-    this.template = {}; // TODO
+    this.handleBack = function () {
+        // Get the current depth
+        var depth = Math.abs(parseInt($('#main').css('margin-left'),10) / 640);
+        
+        // Send back
+        $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400);
+    }
     
     //
     // INIT
@@ -166,15 +195,15 @@ function Base () {
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
             success: function(json) {
-                console.log(json);
                 if (json.code == 200) {
+                    // Generate the template
                     var template = _.template(json.tpl.sheep_all.base);
                     var output = template({
                         inner: _.template(json.tpl.sheep_all.row,{items:json.response.sheep})
                     });
                     
-                    $('#main').append(output).css('width',($('#main > div').length*640));
-                    $('#main').animate({marginLeft: '-=640px'},400);
+                    // Run the animation
+                    self.animate.slideLeft(output, 2);
                 }
                 else {
                     // Something went wrong!
