@@ -6,6 +6,17 @@
  * 
 */
 
+Number.prototype.formatNumber = function(decPlaces, thouSeparator, decSeparator) { // http://stackoverflow.com/a/9318724/921563
+    var n = this,
+    decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+    decSeparator = decSeparator == undefined ? "." : decSeparator,
+    thouSeparator = thouSeparator == undefined ? "," : thouSeparator,
+    sign = n < 0 ? "-" : "",
+    i = parseInt(n = Math.abs(+n || 0).toFixed(decPlaces)) + "",
+    j = (j = i.length) > 3 ? j % 3 : 0;
+    return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
+};
+
 function Base () {
     
     //
@@ -17,7 +28,8 @@ function Base () {
     this.notifications = 0,
     this.disable_scrolling = false,
     this.map = null,
-    this.notification_interval = null;
+    this.notification_interval = null,
+    this.months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
     
     //
     //  Constructor
@@ -333,9 +345,46 @@ function Base () {
             dataType: 'json',
             success: function(json) {
                 if (json.code == 200) {
+                    var response = json.response;
+                    
+                    // Manipulate the data before parsing
+                    if (response.vaccine == 1) {
+                        response.vaccine = 'Ja';
+                    }
+                    else {
+                        response.vaccine = 'Nei';
+                    }
+                    
+                    response.weight = parseInt(response.weight,10).formatNumber(0,',','');
+                    
+                    var birthday = response.birthday.split('-');
+                    response.birthday = parseInt(birthday[2])+'. '+self.months[parseInt(birthday[1])-1]+' '+birthday[0];
+                    
+                    var last_updated = response.last_updated.split(' ');
+                    var last_updated_date = last_updated[0].split('-');
+                    response.last_updated = parseInt(last_updated_date[2])+'. '+self.months[parseInt(last_updated_date[1])-1]+' '+last_updated_date[0]+', kl: '+last_updated[1];
+                    
+                    var comment = response.comment;
+                    if (comment.length == 0) {
+                        response.comment = '<p><i>Ingen kommentar</i></p>';
+                    }
+                    else {
+                        var comment_split = comment.split("\n");
+                        if (comment_split.length > 1) {
+                            var temp_comment = '';
+                            for (var i = 0; i < comment_split.length; i++) {
+                                temp_comment += '<p>'+comment_split[i]+'</p>';
+                            }
+                            response.comment = temp_comment;
+                        }
+                        else {
+                            response.comment = '<p>'+comment+'</p>';
+                        }
+                    }
+                    
                     // Generate the template
-                    var output = _.template(json.tpl.sheep_single.base,json.response);
-                                        
+                    var output = _.template(json.tpl.sheep_single.base,response);
+                    
                     // Run the animation
                     self.animate.slideLeft(output, 3);
                 }
