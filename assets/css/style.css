@@ -360,7 +360,31 @@ ul.home-list .image-overlay {
     display: block;
 }
 
+/*
+    Sheep
+*/
 
-.#wrap-items .item .head {
-    
+.sheep-list-alive-0 {
+    background-image: url('gfx/dead-indicator-bg.png');
+}
+.block-button-collection input {
+    border: 1px solid #8CC7ED;
+    border-radius: 6px 6px 6px 6px;
+    cursor: pointer;
+    height: 55px;
+    padding-left: 22px;
+    padding-right: 22px;
+    color: #d4e5f5;
+    background-color: #1c3f93;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 11px;
+}
+.block-button-collection input.right {
+    float: right;
+}
+.block-button-collection input.alert {
+    background-color: #e1a3ae;
+    color: #1C4094;
+    border: 1px solid #e1778a;
 }
