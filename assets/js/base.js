@@ -178,6 +178,11 @@ function Base () {
         
         // Enable scrolling (if turned off)
         disable_scrolling = false;
+        
+        // Hide the back-button
+        if (depth == 1) {
+            $('#back').hide();
+        }
     };
     
     //
