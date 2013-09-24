@@ -83,7 +83,7 @@ $(document).ready(function () {
         e.preventDefault();
         
         // Ask if the user really wants to log out
-        var q = confirm('Sikker på at du vil slette sau id #?');
+        var q = confirm('Sikker på at du vil slette '+$(this).data('name')+' (#'+$(this).data('identification')+') ?');
         
         // Check if he/she want to or not
         if (q) {
