@@ -142,6 +142,24 @@ $(document).ready(function () {
         // Load the content
         base.admin_alert();
     });
+    $('#main').on('click','.block-alert .link a',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Find parent
+        var $parent = $(this).parent().parent().parent();
+        
+        // Toggle active-class
+        if ($parent.hasClass('active')) {
+            $parent.removeClass('active');
+        }
+        else {
+            $parent.addClass('active');
+        }
+        
+        // Resize!
+        base.animate.resizeMain();
+    });
     
     //
     // Admin - Log

@@ -507,6 +507,33 @@ function Base () {
     // Admin - Alert
     //
     
+    this.admin_alert = function () {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/contact?method=get&tpl=admin_alert&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                console.log(json);
+                if (json.code == 200) {               
+                    // Generate the template
+                    var template = _.template(json.tpl.admin_alert.base);
+                    var output = template({
+                        inner: _.template(json.tpl.admin_alert.row,{items:json.response.contact})
+                    });
+                    
+                    // Run the animation
+                    self.animate.slideLeft(output, 2);
+                }
+                else {
+                    // Something went wrong!
+                }
+            }
+        });
+    };
+    
     //
     // Admin - Log
     //
