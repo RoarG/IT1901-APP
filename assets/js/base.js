@@ -37,6 +37,7 @@ function Base () {
     this.disable_scrolling = false,
     this.map = null,
     this.notification_interval = null,
+    this.contact = null,
     this.months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
     
     //
@@ -578,12 +579,44 @@ function Base () {
                         inner: _.template(json.tpl.admin_alert.row,{items:json.response.contact})
                     });
                     
+                    // Storing conact for laters
+                    self.contact = json.response.contact;
+                    
                     // Run the animation
                     self.animate.slideLeft(output, 2);
                 }
                 else {
                     // Something went wrong!
                 }
+            }
+        });
+    };
+    this.admin_alert_remove = function(elm) {
+        var self = this;
+        
+        // Building new contact-array without the one element we wish to delete
+        var new_arr = [];
+        var local_contact = self.contact;
+        
+        for (var i = 0; i < local_contact.length; i++) {
+            var local_local_contact = local_contact[i];
+            
+            // Check if we can append this contact-person or not
+            if (local_local_contact.epost != elm) {
+                // Append
+                new_arr.append(local_local_contact);
+            }
+        }
+        
+        $.ajax ({
+            url: 'api/contact?method=put&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: new_arr,
+            success: function(json) {
+                console.log(json);
             }
         });
     };

@@ -349,9 +349,28 @@ ul.home-list .image-overlay {
     display: none;
     border-bottom-left-radius: 6px 6px;
     border-bottom-right-radius: 6px 6px;
+    min-height: 40px;
 }
 .block-alert.active .text {
     display: block;
+}
+.block-alert.active .text p {
+    padding-right: 110px;
+}
+.block-alert input[type="submit"] {
+    border: 1px solid #8CC7ED;
+    border-radius: 6px 6px 6px 6px;
+    cursor: pointer;
+    height: 40px;
+    padding-left: 9px;
+    padding-right: 9px;
+    color: #d4e5f5;
+    background-color: #1c3f93;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    right: 22px;
+    top: 15px;
 }
 
 /*

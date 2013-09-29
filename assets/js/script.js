@@ -401,6 +401,19 @@ $(document).ready(function () {
         // Resize!
         base.animate.resizeMain();
     });
+    $('#main').on('submit','.admin-alert-form', function () {
+        // Animate
+        $('div',this).slideUp(400,function () {
+            // Resize!
+            base.animate.resizeMain();
+        });
+        
+        // Send request
+        base.admin_alert_remove($(this).data('epost'));
+        
+        // Return to avoid submitting the form
+        return false;
+    });
     
     //
     // Admin - Log
