@@ -29,6 +29,16 @@ function is_numeric(strString) { // http://www.pbdr.com/vbtips/asp/JavaNumberVal
     return blnResult;
 }
 
+function checkemail(str) {
+    var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+    if (filter.test(str)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 function is_valid_date(d) { // Validating html5-datefield (format yyyy-mm-dd)
     if (d.length == 0) {
         return false;
@@ -66,6 +76,24 @@ function check_required_callback_add() { // Check if there are any fields with r
         }
         
         $('#sheep_add_form input').each(function () {
+            if ($(this).hasClass('required-error')) {
+                found = true;
+            }
+        });
+        
+        if (!found) {
+            // No errors left! Hide the warning
+            $error_text.fadeOut(400);
+        }
+    }
+}
+function check_required_callback_add_dyamic(form,err) { // Check if there are any fields with required-error on them left in the form
+    var $error_text = $('#'+err);
+    if ($error_text.is(':visible')) {
+        // Do the check
+        var found = false;
+        
+        $('#'+form+' input').each(function () {
             if ($(this).hasClass('required-error')) {
                 found = true;
             }
@@ -351,13 +379,19 @@ $(document).ready(function () {
             }
         }
     });
-    $('#main').on('focus','#sheep_add_form input',function () {
+    $('#main').on('focus','#sheep_add_form input, #alert-add-form input',function () {
         // Show helptext
-        $('#'+this.id+'_help').stop().slideDown(400);
+        $('#'+this.id+'_help').stop().slideDown(400,function () {
+            // Resize!
+            base.animate.resizeMain();
+        });
     });
-    $('#main').on('blur','#sheep_add_form input',function () {
+    $('#main').on('blur','#sheep_add_form input, #alert-add-form input',function () {
         // Hide helptext
-        $('#'+this.id+'_help').stop().slideUp(400);
+        $('#'+this.id+'_help').stop().slideUp(400,function () {
+            // Resize!
+            base.animate.resizeMain();
+        });
     });
     
     //
@@ -401,7 +435,7 @@ $(document).ready(function () {
         // Resize!
         base.animate.resizeMain();
     });
-    $('#main').on('submit','.admin-alert-form', function () {
+    $('#main').on('submit','.admin-alert-form',function () {
         // Animate
         $('div',this).slideUp(400,function () {
             // Resize!
@@ -414,8 +448,60 @@ $(document).ready(function () {
         // Return to avoid submitting the form
         return false;
     });
-    $('#main').on('click','#alert-add',function () {
-        //
+    $('#main').on('submit','#alert-add-form',function () {
+        // Validate
+        var error = false;
+        
+        // Validate name
+        if ($('#name').val().length < 2 ) {
+            error = true;
+            $('#name').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        // Validate name
+        var epost = $('#epost').val();
+        if (epost.length < 2 || !checkemail(epost)) {
+            error = true;
+            $('#epost').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        if (error == true) {
+            $error_text = $('#alert_add_error');
+            if ($error_text.is(':hidden')) {
+                // Display error-text
+                $error_text.fadeIn(400);
+            }
+        }
+        else {
+            // Run the api-call!
+            base.admin_alert_add({'name' : $('#name').val(), 'epost': $('#epost').val() });
+        }
+        
+        // Return to avoid submitting the form
+        return false;
+    });
+    $('#main').on('keyup','#alert-add-form input',function () {
+        var $that = $(this);
+        var idn = $that[0].id;
+        
+        // Check for the class
+        if ($that.hasClass('required-error')) {
+            // Has the class, check if we can remove it
+            var valu = $that.val();
+            
+            if (idn == 'epost') {
+                // Check for epost
+                if (valu.length > 0 && checkemail(valu)) {
+                    $that.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add_dyamic('alert-add-form','alert_add_error'));
+                }
+            }
+            else {
+                // Normal case
+                if (valu.length > 0) {
+                    $that.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add_dyamic('alert-add-form','alert_add_error'));
+                }
+            }
+        }
     });
     
     //
