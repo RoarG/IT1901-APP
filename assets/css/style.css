@@ -124,7 +124,7 @@ a {
     font-size: 20px;
     line-height: 32px;
 }
-.block input[type="text"], .block input[type="email"], .block input[type="password"], .block input[type="number"], .block input[type="date"]   {
+.block input[type="text"], .block input[type="email"], .block input[type="password"], .block input[type="number"], .block input[type="date"], .block input[type="email"]   {
     border: 1px solid #8CC7ED;
     border-radius: 6px 6px 6px 6px;
     color: #1C4094;
@@ -487,7 +487,7 @@ ul.home-list .image-overlay {
     padding-right: 23px;
     width: 510px;
 }
-.sheep_add_form_helptext {
+.form_helptext {
     display: none;
     margin: 11px;
     margin-left: 27px;
