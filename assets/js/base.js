@@ -151,7 +151,7 @@ function Base () {
             }
             
             // Set height for the container
-            $('#main').css('height',$('#main-'+depth).height());
+            $('#main').animate({Height: $('#main-'+depth).height()},400);
             
             // Display back-button if it's hidden
             var $back = $('#back');
@@ -164,7 +164,7 @@ function Base () {
             var depth = Math.abs(parseInt($('#main').css('margin-left'),10) / 640) + 1;
             
             // Set height for the container
-            $('#main').css('height',$('#main-'+depth).height());
+            $('#main').animate({Height: $('#main-'+depth).height()},400);
         },
     };
     
@@ -583,9 +583,6 @@ function Base () {
                     // Run the animation
                     self.animate.slideLeft(output, 2);
                 }
-                else {
-                    // Something went wrong!
-                }
             }
         });
     };
@@ -606,6 +603,7 @@ function Base () {
             }
         }
         
+        // Doing the request
         $.ajax ({
             url: 'api/contact?method=put&access_token='+self.token,
             cache: false,
@@ -614,7 +612,34 @@ function Base () {
             type: 'post',
             data: { 'contact' : new_arr },
             success: function(json) {
-                console.log(json);
+                // Resize the window
+                self.animate.resizeMain();
+            }
+        });
+    };
+    this.admin_alert_add = function (elm) {
+        var self = this;
+        
+        // Building new contact-array without the one element we wish to delete
+        self.contact.push(elm);
+        
+        $.ajax ({
+            url: 'api/contact?method=put&tpl=admin_alert&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: { 'contact' : self.contact },
+            success: function(json) {
+                // Generate the new box
+                var output = _.template(json.tpl.admin_alert.row,{items:[elm]});
+                $('#admin-alert-container').append(output);
+                
+                // Resize the window
+                self.animate.resizeMain();
+                
+                // Reset form
+                $('#name,#epost').val('');
             }
         });
     };
