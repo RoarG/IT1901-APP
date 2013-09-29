@@ -299,6 +299,7 @@ ul.home-list .image-overlay {
     width: 581px;
     margin-left: 30px;
     margin-right: 30px;
+    margin-bottom: 6px;
 }
 .block-alert .head {
     background: url('gfx/bg_lightblue.jpg') repeat scroll 0 0 transparent;
