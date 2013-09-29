@@ -458,16 +458,18 @@ ul.home-list .image-overlay {
 }
 .dropdown-body ul li {
     display: block;
-    width: 510px;
+    width: 556px;
     height: 79px;
     line-height: 79px;
     border-bottom: 1px solid #8CC7ED;
-    padding-left: 23px;
-    padding-right: 23px;
 }
 .dropdown-body ul li.last {
     border-bottom: none;
 }
 .dropdown-body ul li a {
     color: #fff;
+    display: block;
+    padding-left: 23px;
+    padding-right: 23px;
+    width: 510px;
 }

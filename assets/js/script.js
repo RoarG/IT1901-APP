@@ -125,7 +125,7 @@ $(document).ready(function () {
         // Load the content
         base.sheep_add();
     });
-    $('#main').on('click','.input-dropdown',function (e) {
+    $('#main').on('click','#sheep-add-dropdown',function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
@@ -135,36 +135,45 @@ $(document).ready(function () {
         if (!$that.hasClass('open')) {
             // Open it
             $that.addClass('open');
-            $('.input-dropdown .dropdown-body').slideDown(400);
+            $('#sheep-add-dropdown .dropdown-body').stop().slideDown(400);
         }
         else {
             // Close it
             $that.removeClass('open');
-            $('.input-dropdown .dropdown-body').slideUp(400);
+            $('#sheep-add-dropdown .dropdown-body').stop().slideUp(400);
         }
     });
-    $('#main').on('click','.input-dropdown ul li a',function (e) {
+    $('#main').on('click','#sheep-add-dropdown .dropdown-body ul li a',function (e) {
         // Prevent default behaviour
         e.preventDefault();
         e.stopPropagation();
         
-        console.log('fired');
-        /*
-        
+        // Store this
         var $that = $(this);
         
-        // Check if open or close
-        if (!$that.hasClass('open')) {
-            // Open it
-            $that.addClass('open');
-            $('.input-dropdown .dropdown-body').slideDown(400);
-        }
-        else {
-            // Close it
-            $that.removeClass('open');
-            $('.input-dropdown .dropdown-body').slideUp(400);
-        }*/
+        // Update info
+        $('#vaccine').val($that.data('value'));
+        $('#sheep-add-dropdown .dropdown-head p').html('Vaksinert: '+$that.html());
+        
+        // Remove active and set the right one
+        $('#sheep-add-dropdown ul li').removeClass('active');
+        $that.parent().addClass('active');
+        
+        // Close it
+        $('#sheep-add-dropdown').removeClass('open');
+        $('#sheep-add-dropdown .dropdown-body').stop().slideUp(400);
     });
+    $('#main').on('clickoutside','#sheep-add-dropdown',function(e) {
+        // TODO, this does not work
+        
+		$that = $('#sheep-add-dropdown');
+        console.log('fired');
+        // Check if opened
+        if ($that.hasClass('open')) {
+            // Trigger click to simulate close
+            $that.trigger('click');
+        }
+	});
     
     //
     // Admin - Edit
