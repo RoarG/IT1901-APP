@@ -125,6 +125,24 @@ $(document).ready(function () {
         // Load the content
         base.sheep_add();
     });
+    $('#main').on('click','.input-dropdown',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        var $that = $(this);
+        
+        // Check if open or close
+        if (!$that.hasClass('open')) {
+            // Open it
+            $that.addClass('open');
+            $('.input-dropdown .dropdown-body').slideDown(400);
+        }
+        else {
+            // Close it
+            $that.removeClass('open');
+            $('.input-dropdown .dropdown-body').slideUp(400);
+        }
+    });
     
     //
     // Admin - Edit
