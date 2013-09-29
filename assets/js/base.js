@@ -1,13 +1,13 @@
 /*
  * File: base.php
- * Holds: Holds 
- * Last updated: 16.09.13
+ * Holds: Holds the base-object that takes care of all the animations and communication with the api
+ * Last updated: 29.09.13
  * Project: Prosjekt1
  * 
 */
 
 //
-// Prototypes
+// Prototypes / Methods
 //
 
 Number.prototype.formatNumber = function(decPlaces, thouSeparator, decSeparator) { // http://stackoverflow.com/a/9318724/921563

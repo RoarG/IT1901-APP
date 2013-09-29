@@ -1,3 +1,38 @@
+/*
+ * File: script.php
+ * Holds: Holds every event used in the app
+ * Last updated: 24.09.13
+ * Project: Prosjekt1
+ * 
+*/
+
+//
+// Methods
+//
+
+function is_numeric(strString) { // http://www.pbdr.com/vbtips/asp/JavaNumberValid.htm (modified)
+    var strValidChars = '0123456789.';
+    var strChar;
+    var blnResult = true;
+
+    if (strString.length == 0) {
+        return false;
+    }
+    
+    for (i = 0; i < strString.length && blnResult == true; i++) {
+        strChar = strString.charAt(i);
+        if (strValidChars.indexOf(strChar) == -1) {
+            blnResult = false;
+        }
+    }
+    
+    return blnResult;
+}
+
+//
+// jQuery
+//
+
 $(document).ready(function () {
     
     //
@@ -175,8 +210,69 @@ $(document).ready(function () {
         }
 	});
     $('#main').on('submit','#sheep_add_form',function () {
-        console.log($(this).serialize());
+        var error = false;
+        
+        // Validate identification
+        if ($('#identification').val().length == 0) {
+            error = true;
+            $('#identification-holder').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        // Validate name
+        if ($('#name').val().length == 0) {
+            error = true;
+            $('#name').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        // Validate birthday
+        if ($('#birthday').val().length == 0) { // TODO
+            error = true;
+            $('#birthday').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        // Validate weight
+        var weight = $('#weight').val();
+        if (weight.length == 0 || !is_numeric(weight)) {
+            error = true;
+            $('#weight').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        // Validate lat
+        var lat = $('#lat').val();
+        if (lat.length == 0 || !is_numeric(lat)) {
+            error = true;
+            $('#lat').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        // Validate lng
+        var lng = $('#lng').val();
+        if (lng.length == 0 || !is_numeric(lng)) {
+            error = true;
+            $('#lng').addClass('required-error').animate({borderColor: 'red'});
+        }
+        
+        if (error == true) {
+            $error_text = $('#sheep_add_error');
+            if ($error_text.is(':hidden')) {
+                // Display error-text
+                $error_text.fadeIn(400);
+            }
+        }
+        else {
+            $error_text = $('#sheep_add_error');
+            if ($error_text.is(':visible')) {
+                // Hide error-text
+                $error_text.fadeOut(400);
+            }
+        }
+        
         return false;
+    });
+    $('#main').on('keyup','#sheep_add_form input',function () {
+        var $that = $(this);
+        
+        // Check if this has red border
+        console.log($that.css(borderColorLeft));
     });
     
     //

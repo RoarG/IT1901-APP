@@ -150,12 +150,6 @@ a {
 .block input[type="submit"].right {
     float: right;
 }
-#login_wrong_pw {
-    display: none;
-    line-height: 29px;
-    font-size: 26px;
-    color: red;
-}
 .block .submit-container {
     width: 581px;
     height: 104px;
@@ -171,6 +165,12 @@ a {
     width: 200px;
     height: 104px;
     float: left;
+}
+.block .submit-container-left p {
+    display: none;
+    line-height: 29px;
+    font-size: 26px;
+    color: red;
 }
 
 /*
