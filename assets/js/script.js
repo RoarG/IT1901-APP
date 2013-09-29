@@ -1,7 +1,7 @@
 /*
  * File: script.php
  * Holds: Holds every event used in the app
- * Last updated: 24.09.13
+ * Last updated: 29.09.13
  * Project: Prosjekt1
  * 
 */

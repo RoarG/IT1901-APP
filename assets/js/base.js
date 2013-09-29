@@ -535,8 +535,18 @@ function Base () {
             type: 'post',
             data: ajax_data,
             success: function(json) {
-                // Debug
-                console.log(json);
+                var code = json.code;
+                if (code == 200) {
+                    // Reset the form
+                    $('#sheep_add_form input').val('');
+                    
+                    // Display the new sheep
+                    self.sheep_one(json.response.id);
+                }
+                else {
+                    // Return error-message!
+                    alert('Noe gikk galt. Systemet returnerte feilkode #'+code+' og teksten '+json.msg);
+                }
             }
         });
     }
