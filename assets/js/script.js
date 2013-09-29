@@ -174,6 +174,10 @@ $(document).ready(function () {
             $that.trigger('click');
         }
 	});
+    $('#main').on('submit','#sheep_add_form',function () {
+        console.log($(this).serialize());
+        return false;
+    });
     
     //
     // Admin - Edit
