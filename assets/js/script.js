@@ -29,6 +29,31 @@ function is_numeric(strString) { // http://www.pbdr.com/vbtips/asp/JavaNumberVal
     return blnResult;
 }
 
+function is_valid_date(d) { // Validating html5-datefield (format yyyy-mm-dd)
+    if (d.length == 0) {
+        return false;
+    }
+    else {
+        var splt = d.split('-');
+        if (splt.length != 3) {
+            return false;
+        }
+        else {
+            if (splt[0].length != 4) {
+                return false;
+            }
+            if (splt[1].length != 2) {
+                return false;
+            }
+            if (splt[2].length != 2) {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+
 //
 // jQuery
 //
@@ -198,11 +223,9 @@ $(document).ready(function () {
         $('#sheep-add-dropdown').removeClass('open');
         $('#sheep-add-dropdown .dropdown-body').stop().slideUp(400);
     });
-    $('#main').on('clickoutside','#sheep-add-dropdown',function(e) {
-        // TODO, this does not work
-        
+    $('#main').on('clickoutside','#sheep-add-dropdown',function(e) { // TODO, this does not work
 		$that = $('#sheep-add-dropdown');
-        console.log('fired');
+        
         // Check if opened
         if ($that.hasClass('open')) {
             // Trigger click to simulate close
@@ -213,40 +236,41 @@ $(document).ready(function () {
         var error = false;
         
         // Validate identification
-        if ($('#identification').val().length == 0) {
+        var identification = $('#identification').val();
+        if (identification.length < 2 || !is_numeric(identification)) {
             error = true;
             $('#identification-holder').addClass('required-error').animate({borderColor: 'red'});
         }
         
         // Validate name
-        if ($('#name').val().length == 0) {
+        if ($('#name').val().length < 2 ) {
             error = true;
             $('#name').addClass('required-error').animate({borderColor: 'red'});
         }
         
         // Validate birthday
-        if ($('#birthday').val().length == 0) { // TODO
+        if (!is_valid_date($('#birthday').val())) {
             error = true;
             $('#birthday').addClass('required-error').animate({borderColor: 'red'});
         }
         
         // Validate weight
         var weight = $('#weight').val();
-        if (weight.length == 0 || !is_numeric(weight)) {
+        if (weight.length < 2 || !is_numeric(weight)) {
             error = true;
             $('#weight').addClass('required-error').animate({borderColor: 'red'});
         }
         
         // Validate lat
         var lat = $('#lat').val();
-        if (lat.length == 0 || !is_numeric(lat)) {
+        if (lat.length < 2 || !is_numeric(lat)) {
             error = true;
             $('#lat').addClass('required-error').animate({borderColor: 'red'});
         }
         
         // Validate lng
         var lng = $('#lng').val();
-        if (lng.length == 0 || !is_numeric(lng)) {
+        if (lng.length < 2 || !is_numeric(lng)) {
             error = true;
             $('#lng').addClass('required-error').animate({borderColor: 'red'});
         }
@@ -270,9 +294,41 @@ $(document).ready(function () {
     });
     $('#main').on('keyup','#sheep_add_form input',function () {
         var $that = $(this);
+        var idn = $that[0].id;
         
-        // Check if this has red border
-        console.log($that.css(borderColorLeft));
+        // Check if we need to check class on another object than this
+        if (idn == 'identification') {
+            // Special case
+            $check_obj = $('#identification-holder');
+        }
+        else {
+            $check_obj = $that;
+        }
+        
+        // Check for the class
+        if ($check_obj.hasClass('required-error')) {
+            // Has the class, check if we can remove it
+            var valu = $that.val();
+            
+            if (idn == 'birthday') {
+                // Check for correct date-value
+                if (is_valid_date(valu)) {
+                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'});
+                }
+            }
+            else if (idn == 'identification' || idn == 'weight' || idn == 'lat' || idn == 'lng') {
+                // Check for numeric values
+                if (valu.length > 0 && is_numeric(valu)) {
+                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'});
+                }
+            }
+            else {
+                // Normal case
+                if (valu.length > 0) {
+                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'});
+                }
+            }
+        }
     });
     
     //
