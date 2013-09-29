@@ -524,6 +524,22 @@ function Base () {
             }
         });
     }
+    this.sheep_add_sumit = function (ajax_data) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/sheep/?method=post&access_token='+self.token+'&tpl=sheep_add',
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: ajax_data,
+            success: function(json) {
+                // Debug
+                console.log(json);
+            }
+        });
+    }
     
     //
     // Admin - Edit

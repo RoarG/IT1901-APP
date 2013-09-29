@@ -54,6 +54,30 @@ function is_valid_date(d) { // Validating html5-datefield (format yyyy-mm-dd)
     return true;
 }
 
+function check_required_callback_add() { // Check if there are any fields with required-error on them left in the form
+    var $error_text = $('#sheep_add_error');
+    if ($error_text.is(':visible')) {
+        // Do the check
+        var found = false;
+        
+        // Check identification first
+        if ($('#identification-holder').hasClass('required-error')) {
+            return;
+        }
+        
+        $('#sheep_add_form input').each(function () {
+            if ($(this).hasClass('required-error')) {
+                found = true;
+            }
+        });
+        
+        if (!found) {
+            // No errors left! Hide the warning
+            $error_text.fadeOut(400);
+        }
+    }
+}
+
 //
 // jQuery
 //
@@ -283,11 +307,8 @@ $(document).ready(function () {
             }
         }
         else {
-            $error_text = $('#sheep_add_error');
-            if ($error_text.is(':visible')) {
-                // Hide error-text
-                $error_text.fadeOut(400);
-            }
+            // Run the api-call!
+            base.sheep_add_sumit($(this).serialize());
         }
         
         return false;
@@ -313,22 +334,30 @@ $(document).ready(function () {
             if (idn == 'birthday') {
                 // Check for correct date-value
                 if (is_valid_date(valu)) {
-                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'});
+                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add);
                 }
             }
             else if (idn == 'identification' || idn == 'weight' || idn == 'lat' || idn == 'lng') {
                 // Check for numeric values
                 if (valu.length > 0 && is_numeric(valu)) {
-                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'});
+                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add);
                 }
             }
             else {
                 // Normal case
                 if (valu.length > 0) {
-                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'});
+                    $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add);
                 }
             }
         }
+    });
+    $('#main').on('focus','#sheep_add_form input',function () {
+        // Show helptext
+        $('#'+this.id+'_help').stop().slideDown(400);
+    });
+    $('#main').on('blur','#sheep_add_form input',function () {
+        // Hide helptext
+        $('#'+this.id+'_help').stop().slideUp(400);
     });
     
     //

@@ -467,3 +467,8 @@ ul.home-list .image-overlay {
     padding-right: 23px;
     width: 510px;
 }
+.sheep_add_form_helptext {
+    display: none;
+    margin: 11px;
+    margin-left: 27px;
+}
