@@ -143,6 +143,28 @@ $(document).ready(function () {
             $('.input-dropdown .dropdown-body').slideUp(400);
         }
     });
+    $('#main').on('click','.input-dropdown ul li a',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('fired');
+        /*
+        
+        var $that = $(this);
+        
+        // Check if open or close
+        if (!$that.hasClass('open')) {
+            // Open it
+            $that.addClass('open');
+            $('.input-dropdown .dropdown-body').slideDown(400);
+        }
+        else {
+            // Close it
+            $that.removeClass('open');
+            $('.input-dropdown .dropdown-body').slideUp(400);
+        }*/
+    });
     
     //
     // Admin - Edit
