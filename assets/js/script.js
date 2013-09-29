@@ -91,6 +91,13 @@ $(document).ready(function () {
             base.sheep_one_delete($(this).data('id'));
         }
     });
+    $('#main').on('click','#sheep_single_edit',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load edit
+        base.sheep_one_edit($(this).data('id'));
+    });
     
     //
     // Sheep - Display on map

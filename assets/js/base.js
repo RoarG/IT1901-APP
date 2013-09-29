@@ -6,6 +6,10 @@
  * 
 */
 
+//
+// Prototypes
+//
+
 Number.prototype.formatNumber = function(decPlaces, thouSeparator, decSeparator) { // http://stackoverflow.com/a/9318724/921563
     var n = this,
     decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
@@ -16,6 +20,10 @@ Number.prototype.formatNumber = function(decPlaces, thouSeparator, decSeparator)
     j = (j = i.length) > 3 ? j % 3 : 0;
     return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
 };
+
+//
+// Base-class
+//
 
 function Base () {
     
@@ -62,7 +70,7 @@ function Base () {
     }
     
     //
-    // Notification
+    // Notifications
     //
     
     this.notification_interval_handler = function (state) {
@@ -150,9 +158,6 @@ function Base () {
                 $back.show();
             }
         },
-        slideRight : function (html, depth, destroy) {
-            //
-        },
         resizeMain : function () {
             // Get current depth
             var depth = Math.abs(parseInt($('#main').css('margin-left'),10) / 640) + 1;
@@ -216,7 +221,7 @@ function Base () {
                         self.animate.fadeIn('#main', json.tpl.home.base, 1);
                         
                         // Change title
-                        document.title = 'Sheep :: '+json.response.system_name;
+                        document.title = 'Sheep Locator :: '+json.response.system_name;
                         
                         // Set notification-number & show
                         $('#notifications a').html(json.response.notifications);
@@ -257,7 +262,7 @@ function Base () {
                     self.animate.fadeIn('#main',json.tpl.home.base, 1);
                     
                     // Change title
-                    document.title = 'Sheep :: '+json.response.system_name;
+                    document.title = 'Sheep Locator :: '+json.response.system_name;
                     
                     // Set notification-number & show
                     $('#notifications a').html(json.response.notifications);
@@ -297,7 +302,7 @@ function Base () {
                 self.animate.fadeIn('#main',json.tpl.login.base, 1);
                     
                 // Change title
-                document.title = 'Sheep';
+                document.title = 'Sheep Locator';
                 
                 // Hide notification-number & show
                 $('#notifications').hide();
@@ -411,6 +416,24 @@ function Base () {
                 if (json.code == 200) {
                     // Go back to the previous page
                     self.sheep_all();
+                }
+                else {
+                    // Something went wrong!
+                }
+            }
+        });
+    }
+    this.sheep_one_edit = function (id) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/sheep/'+id+'?method=get&tpl=sheep_single_edit&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                if (json.code == 200) {
+                    // Todo
                 }
                 else {
                     // Something went wrong!
