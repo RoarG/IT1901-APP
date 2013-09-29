@@ -150,6 +150,28 @@ a {
 .block input[type="submit"].right {
     float: right;
 }
+#login_wrong_pw {
+    display: none;
+    line-height: 29px;
+    font-size: 26px;
+    color: red;
+}
+.block .submit-container {
+    width: 581px;
+    height: 104px;
+}
+.block .submit-container-left {
+    width: 362px;
+    height: 85px;
+    float: left;
+    margin-top: 19px;
+    margin-left: 19px;
+}
+.block .submit-container-right {
+    width: 200px;
+    height: 104px;
+    float: left;
+}
 
 /*
     Notification
@@ -198,34 +220,6 @@ a {
 .block-init img {
     width: 200px;
     height: 200px; 
-}
-
-
-/*
-    Login
-*/
-
-#login_wrong_pw {
-    display: none;
-    line-height: 29px;
-    font-size: 26px;
-    color: red;
-}
-#login_bottom_container {
-    width: 581px;
-    height: 104px;
-}
-#login_error_container {
-    width: 362px;
-    height: 85px;
-    float: left;
-    margin-top: 19px;
-    margin-left: 19px;
-}
-#login_button_container {
-    width: 200px;
-    height: 104px;
-    float: left;
 }
 
 /*
