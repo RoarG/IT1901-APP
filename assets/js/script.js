@@ -414,6 +414,9 @@ $(document).ready(function () {
         // Return to avoid submitting the form
         return false;
     });
+    $('#main').on('click','#alert-add',function () {
+        //
+    });
     
     //
     // Admin - Log

@@ -500,7 +500,6 @@ function Base () {
         });
     };
     this.handle_scrolling = function (e) {
-        console.log(e);
         // Disable scrolling if displaying the map
         if (disable_scrolling) {
             e.preventDefault();
@@ -571,7 +570,6 @@ function Base () {
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
             success: function(json) {
-                console.log(json);
                 if (json.code == 200) {               
                     // Generate the template
                     var template = _.template(json.tpl.admin_alert.base);
@@ -604,7 +602,7 @@ function Base () {
             // Check if we can append this contact-person or not
             if (local_local_contact.epost != elm) {
                 // Append
-                new_arr.append(local_local_contact);
+                new_arr.push(local_local_contact);
             }
         }
         
@@ -614,7 +612,7 @@ function Base () {
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
             type: 'post',
-            data: new_arr,
+            data: { 'contact' : new_arr },
             success: function(json) {
                 console.log(json);
             }
