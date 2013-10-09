@@ -348,7 +348,10 @@ function Base () {
                     });
                     
                     // Run the animation
-                    self.animate.slideLeft(output, 2);
+                    self.animate.slideLeft(output, 2, function () {
+                        // Resize
+                        self.animate.resizeMain();
+                    });
                 }
                 else {
                     // Something went wrong!
@@ -407,7 +410,10 @@ function Base () {
                     var output = _.template(json.tpl.sheep_single.base,response);
                     
                     // Run the animation
-                    self.animate.slideLeft(output, 3);
+                    self.animate.slideLeft(output, 3, function () {
+                        // Resize
+                        self.animate.resizeMain();
+                    });
                 }
                 else {
                     // Something went wrong!
@@ -451,7 +457,10 @@ function Base () {
                     var template = _.template(json.tpl.sheep_single_edit.base, json.response);
                     
                     // Run the animation
-                    self.animate.slideLeft(template, 4);
+                    self.animate.slideLeft(template, 4, function () {
+                        // Resize
+                        self.animate.resizeMain();
+                    });
                 }
                 else {
                     // Something went wrong!
@@ -564,7 +573,10 @@ function Base () {
             dataType: 'json',
             success: function(json) {
                 // Run the animation
-                self.animate.slideLeft(json.tpl.sheep_add.base, 2);
+                self.animate.slideLeft(json.tpl.sheep_add.base, 2, function () {
+                    // Resize
+                    self.animate.resizeMain();
+                });
             }
         });
     }
@@ -625,7 +637,10 @@ function Base () {
                     self.contact = json.response.contact;
                     
                     // Run the animation
-                    self.animate.slideLeft(output, 2);
+                    self.animate.slideLeft(output, 2, function () {
+                        // Resize
+                        self.animate.resizeMain();
+                    });
                 }
             }
         });
