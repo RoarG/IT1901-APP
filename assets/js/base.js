@@ -38,7 +38,8 @@ function Base () {
     this.map = null,
     this.notification_interval = null,
     this.contact = null,
-    this.months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
+    this.months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'],
+    this.displayingMap = false;
     
     //
     //  Constructor
@@ -166,6 +167,9 @@ function Base () {
             // Set height for the container
             $('#main').animate({Height: $('#main-'+depth).height()},400);
         },
+        mapSpecial : function (mode) {
+            $('#nav').animate({marginTop : ((mode)?'-161px':'0px')},400);
+        }
     };
     
     //
@@ -188,6 +192,12 @@ function Base () {
         // Hide the back-button
         if (depth == 1) {
             $('#back').hide();
+        }
+        
+        // Check if currently displaying map
+        if (this.displayingMap) {
+            this.displayingMap = false;
+            this.animate.mapSpecial(false);
         }
     };
     
@@ -450,6 +460,9 @@ function Base () {
     this.sheep_map = function () {
         var self = this;
         
+        // Storing current state
+        self.displayingMap = true;
+        
         $.ajax ({
             url: 'api/map?method=get&tpl=sheep_map&access_token='+self.token,
             cache: false,
@@ -457,18 +470,14 @@ function Base () {
             dataType: 'json',
             success: function(json) {
                 if (json.code == 200) {               
-                    // Run the animation
+                    // Run the animations
+                    self.animate.mapSpecial(true);
                     self.animate.slideLeft(json.tpl.sheep_map.base, 2, function () {
                         // Set the height of the map
-                        $('#map').css('height',$(window).height());
+                        $('#map').css('height',$(window).height() - 101);
+                        
                         // Resize
                         self.animate.resizeMain();
-                        
-                        // Scroll
-                        $('html, body').scrollTop(161);
-                        
-                        // Disable scrolling
-                        disable_scrolling = true;
                         
                         var pos = json.response.center;
                         
@@ -498,12 +507,6 @@ function Base () {
                 }
             }
         });
-    };
-    this.handle_scrolling = function (e) {
-        // Disable scrolling if displaying the map
-        if (disable_scrolling) {
-            e.preventDefault();
-        }
     };
     
     //

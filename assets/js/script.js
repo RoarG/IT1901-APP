@@ -222,9 +222,6 @@ $(document).ready(function () {
         // Load the content
         base.sheep_map();
     });
-    document.ontouchstart = function (e) {
-        base.handle_scrolling(e);
-    }
     
     //
     // Sheep - Add
