@@ -50,7 +50,7 @@ a {
     background: url('gfx/nav-bg.png') repeat-x scroll 0 0 transparent;
     height: 81px;
     width: 640px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 /*
@@ -179,7 +179,7 @@ a {
 
 #notifications {
     position: absolute;
-    bottom: 21px;
+    bottom: 41px;
     right: 27px;
     width: 50px;
     height: 50px;
