@@ -492,3 +492,17 @@ ul.home-list .image-overlay {
     margin: 11px;
     margin-left: 27px;
 }
+#sheep_comment_container {
+    margin: 11px;
+    width: 510px;
+}
+#sheep_comment_container textarea {
+    border: 1px solid #8CC7ED;
+    border-radius: 6px 6px 6px 6px;
+    color: #1C4094;
+    font-size: 22px;
+    height: 115px;
+    padding: 27px 23px;
+    width: 518px;
+    padding-right: 4px;
+}

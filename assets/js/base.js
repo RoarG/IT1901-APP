@@ -444,10 +444,40 @@ function Base () {
             dataType: 'json',
             success: function(json) {
                 if (json.code == 200) {
-                    self.animate.slideLeft(json.tpl.sheep_single_edit.base, 4);
+                    // Fix vaccine_pretty for parsing
+                    json.response.vaccine_pretty = ((json.response.vaccine == '1')?'Ja':'Nei');
+                    
+                    // Parse the template
+                    var template = _.template(json.tpl.sheep_single_edit.base, json.response);
+                    
+                    // Run the animation
+                    self.animate.slideLeft(template, 4);
                 }
                 else {
                     // Something went wrong!
+                }
+            }
+        });
+    }
+    this.sheep_edit_submit = function (id, ajax_data) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/sheep/'+id+'?method=put&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: ajax_data,
+            success: function(json) {
+                var code = json.code;
+                if (code == 200) {
+                    // Display the new sheep
+                    self.sheep_one(json.response.id);
+                }
+                else {
+                    // Return error-message!
+                    alert('Noe gikk galt. Systemet returnerte feilkode #'+code+' og teksten '+json.msg);
                 }
             }
         });
@@ -527,7 +557,7 @@ function Base () {
             }
         });
     }
-    this.sheep_add_sumit = function (ajax_data) {
+    this.sheep_add_submit = function (ajax_data) {
         var self = this;
         
         $.ajax ({

@@ -281,7 +281,7 @@ $(document).ready(function () {
             $that.trigger('click');
         }
 	});
-    $('#main').on('submit','#sheep_add_form',function () {
+    $('#main').on('submit','#sheep_add_form, #sheep_edit_form',function () {
         var error = false;
         
         // Validate identification
@@ -333,12 +333,17 @@ $(document).ready(function () {
         }
         else {
             // Run the api-call!
-            base.sheep_add_sumit($(this).serialize());
+            if (this.id == 'sheep_add_form') {
+                base.sheep_add_submit($(this).serialize());
+            }
+            else {
+                base.sheep_edit_submit($('#id').val(), $(this).serialize());
+            }
         }
         
         return false;
     });
-    $('#main').on('keyup','#sheep_add_form input',function () {
+    $('#main').on('keyup','#sheep_add_form input, #sheep_edit_form input',function () {
         var $that = $(this);
         var idn = $that[0].id;
         
@@ -376,14 +381,14 @@ $(document).ready(function () {
             }
         }
     });
-    $('#main').on('focus','#sheep_add_form input, #alert-add-form input',function () {
+    $('#main').on('focus','#sheep_add_form input, #sheep_edit_form input, #alert-add-form input',function () {
         // Show helptext
         $('#'+this.id+'_help').stop().slideDown(400,function () {
             // Resize!
             base.animate.resizeMain();
         });
     });
-    $('#main').on('blur','#sheep_add_form input, #alert-add-form input',function () {
+    $('#main').on('blur','#sheep_add_form input, #sheep_edit_form input, #alert-add-form input',function () {
         // Hide helptext
         $('#'+this.id+'_help').stop().slideUp(400,function () {
             // Resize!
