@@ -442,7 +442,9 @@ $(document).ready(function () {
         }
         
         // Resize!
-        base.animate.resizeMain();
+        setTimeout(function () {
+            base.animate.resizeMain();
+        }, 100); 
     });
     $('#main').on('submit','.admin-alert-form',function () {
         // Animate
