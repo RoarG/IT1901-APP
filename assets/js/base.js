@@ -487,14 +487,22 @@ function Base () {
     // Sheep - Display on map
     //
     
-    this.sheep_map = function () {
+    this.sheep_map = function (sheep) {
         var self = this;
         
         // Storing current state
         self.displayingMap = true;
         
+        // Check if displaying all of just one
+        if (sheep == null) {
+            var api_additions = '';
+        }
+        else {
+            var api_additions = '/'+sheep;
+        }
+        
         $.ajax ({
-            url: 'api/map?method=get&tpl=sheep_map&access_token='+self.token,
+            url: 'api/map'+api_additions+'?method=get&tpl=sheep_map&access_token='+self.token,
             cache: false,
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
@@ -509,12 +517,15 @@ function Base () {
                         // Resize
                         self.animate.resizeMain();
                         
+                        // Scroll to top
+                        $('html, body').scrollTop(0);
+                        
                         var pos = json.response.center;
                         
                         // Init Google Maps
                         self.map = new google.maps.Map(document.getElementById("map"),{
                             center: new google.maps.LatLng(pos.lat, pos.lng), 
-                            zoom: 9,
+                            zoom: 15,
                             mapTypeId: google.maps.MapTypeId.ROADMAP,
                             streetViewControl: false});
                         
@@ -524,7 +535,7 @@ function Base () {
                             var map_marker = new google.maps.Marker({
                                 map: self.map,
                                 position: new google.maps.LatLng(current_sheep.lat, current_sheep.lng),
-                                //icon: 'assets/css/gfx/kartikoner/overnatting.png',
+                                icon: 'assets/css/gfx/loc_test.png',
                                 visible: true
                             });
                             

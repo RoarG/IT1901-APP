@@ -210,6 +210,13 @@ $(document).ready(function () {
         // Load edit
         base.sheep_one_edit($(this).data('id'));
     });
+    $('#main').on('click','#sheep_single_map',function (e) {
+        // Prevent default behaviour
+        e.preventDefault();
+        
+        // Load edit
+        base.sheep_map($(this).data('id'));
+    });
     
     //
     // Sheep - Display on map
@@ -220,7 +227,7 @@ $(document).ready(function () {
         e.preventDefault();
         
         // Load the content
-        base.sheep_map();
+        base.sheep_map(null);
     });
     
     //
