@@ -94,7 +94,7 @@ a {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 }
-.block-top.block-top-radius{
+.block-top.block-top-radius {
     border-radius: 6px 6px;
 }
 .block-top h2 {
@@ -171,6 +171,9 @@ a {
     line-height: 29px;
     font-size: 26px;
     color: red;
+}
+.block-logout {
+    padding-bottom: 25px;
 }
 
 /*

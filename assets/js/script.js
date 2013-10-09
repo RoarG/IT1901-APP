@@ -251,12 +251,18 @@ $(document).ready(function () {
         if (!$that.hasClass('open')) {
             // Open it
             $that.addClass('open');
-            $('#sheep-add-dropdown .dropdown-body').stop().slideDown(400);
+            $('#sheep-add-dropdown .dropdown-body').stop().slideDown(400, function () {
+                // Resize viewport
+                base.animate.resizeMain();
+            });
         }
         else {
             // Close it
             $that.removeClass('open');
-            $('#sheep-add-dropdown .dropdown-body').stop().slideUp(400);
+            $('#sheep-add-dropdown .dropdown-body').stop().slideUp(400, function () {
+                // Resize viewport
+                base.animate.resizeMain();
+            });
         }
     });
     $('#main').on('click','#sheep-add-dropdown .dropdown-body ul li a',function (e) {
