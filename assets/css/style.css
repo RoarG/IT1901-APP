@@ -505,4 +505,5 @@ ul.home-list .image-overlay {
     padding: 27px 23px;
     width: 518px;
     padding-right: 4px;
+    resize: none;
 }
