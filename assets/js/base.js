@@ -444,7 +444,7 @@ function Base () {
             dataType: 'json',
             success: function(json) {
                 if (json.code == 200) {
-                    // Todo
+                    self.animate.slideLeft(json.tpl.sheep_single_edit.base, 4);
                 }
                 else {
                     // Something went wrong!
