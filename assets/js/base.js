@@ -358,7 +358,7 @@ function Base () {
                 self.setToken(null);
                 
                 // Animating
-                self.animate.fadeIn('#main',json.tpl.login.base, 1);
+                self.animate.fadeIn('#main', json.tpl.login.base, 1);
                     
                 // Change title
                 document.title = 'Sheep Locator';
