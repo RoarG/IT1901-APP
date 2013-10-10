@@ -60,7 +60,7 @@ function Base () {
     
     this.setToken = function (t) {
         this.token = t;
-        this.ls.setItem('api-token',t);
+        this.ls.setItem('api-token', t);
     };
     
     //
@@ -95,7 +95,8 @@ function Base () {
                                 // Update displayed value
                                 $('#notifications a').html(new_notification_value);
                                 
-                                // Highlight?
+                                // Fetch the new notifications and store them in the popup
+                                self.notification_fetch_dropdown();
                             }
                         }
                         else {
@@ -110,6 +111,19 @@ function Base () {
             clearInterval(this.notification_interval);
         }
     };
+    this.notification_fetch_dropdown = function () {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/notification/dropdown?method=get&access_token='+self.token+'&tpl=notifications',
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                console.log(json)
+            }
+        });
+    }
     
     //
     // Animations
