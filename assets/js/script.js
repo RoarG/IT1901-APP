@@ -194,12 +194,22 @@ $(document).ready(function () {
         // Load the content
         base.sheep_all();
     });
-    $('#main').on('click','.sheep-single-view',function (e) {
+    $('#wrapper').on('click','.sheep-single-view',function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
-        // Load the content
-        base.sheep_one($(this).data('id'));
+        // Check if clicked from the notification-overlay
+        if ($(this).hasClass('from-notification')) {
+            // Trigger click on background to hide the notification-overlay
+            $('#notification-window-overlay').trigger('click');
+            
+            // Load the content
+            base.sheep_one($(this).data('id'), 2);
+        }
+        else {
+            // Load the content
+            base.sheep_one($(this).data('id'), null);
+        } 
     });
     $('#main').on('click','#sheep_single_delete',function (e) {
         // Prevent default behaviour

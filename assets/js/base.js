@@ -95,6 +95,9 @@ function Base () {
                                 // Update displayed value
                                 $('#notifications a').html(new_notification_value);
                                 
+                                // Update notification-number in overlay
+                                $('#notifications-top span').html(' ('+ new_notification_value +')');
+                                
                                 // Fetch the new notifications and store them in the popup
                                 self.notification_fetch_dropdown();
                             }
@@ -120,7 +123,32 @@ function Base () {
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
             success: function(json) {
-                console.log(json)
+                if (json.code == 200) {
+                    // Check if number is less than it was eariler and if the window is open, in that case, don't overwrite
+                    
+                    // Parse sheep-overlay if we need it
+                    for (var i = 0; i < json.response.notifications.length; i++) {
+                        if (json.response.notifications[i].sheep != null) {
+                            json.response.notifications[i].sheep_overlay = '<div class="notification-to-sheep-overlay image-overlay"><a class="sheep-single-view from-notification" href="#" data-id="'+json.response.notifications[i].sheep+'"><img src="assets/css/gfx/blank2x2.png" alt="" /></a></div>';
+                        }
+                        else {
+                            json.response.notifications[i].sheep_overlay = '';
+                        }
+                    }
+                    
+                    var template = _.template(json.tpl.notifications.base);
+                    var output = template({
+                        inner: _.template(json.tpl.notifications.row,{items:json.response.notifications})
+                    });
+                    
+                    $('#notifications-body').html(output);
+                    
+                    // Reset intiail
+                    $('#notifications-body').data('hasinitialvalue', 1);
+                }
+                else {
+                    // Error
+                }
             }
         });
     }
@@ -253,6 +281,9 @@ function Base () {
                         $('#notifications').show();
                         self.notifications = json.response.notifications;
                         
+                        // Update notification-number in overlay
+                        $('#notifications-top span').html(' ('+ new_notification_value +')');
+                        
                         // Start fetching notifications every 20 seconds
                         self.notification_interval_handler(true);
                     }
@@ -293,6 +324,9 @@ function Base () {
                     $('#notifications a').html(json.response.notifications);
                     $('#notifications').show();
                     self.notifications = json.response.notifications;
+                    
+                    // Update notification-number in overlay
+                    $('#notifications-top span').html(' ('+ new_notification_value +')');
                     
                     // Start fetching notifications every 20 seconds
                     self.notification_interval_handler(true);
@@ -373,7 +407,7 @@ function Base () {
             }
         });
     };
-    this.sheep_one = function (id) {
+    this.sheep_one = function (id, base) {
         var self = this;
         
         $.ajax ({
@@ -424,7 +458,7 @@ function Base () {
                     var output = _.template(json.tpl.sheep_single.base,response);
                     
                     // Run the animation
-                    self.animate.slideLeft(output, 3, function () {
+                    self.animate.slideLeft(output, ((base == null)? 3 : base), function () {
                         // Resize
                         self.animate.resizeMain();
                     });

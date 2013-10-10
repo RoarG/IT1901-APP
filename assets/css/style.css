@@ -247,6 +247,37 @@ a {
     height: 100px;
     width: 581px;
 }
+#notifications-body li {
+    height: auto;
+    line-height: 28px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size: 22px;
+    padding-right: 60px;
+}
+#notifications-body li .image-overlay, #notifications-body li .image-overlay img {
+    height: 100%;
+    width: 100%;
+}
+#notifications-body li .time {
+    padding-top: 10px;
+    font-size: 18px;
+}
+ul.home-list li.sheep-is-sheep-:after {
+    content: none;
+}
+.is-read-indicator {
+    display: none;
+    z-index: 1;
+}
+.notification-to-sheep-overlay {
+    z-index: 999;
+}
+ul.home-list li.sheep-is-read-1 .is-read-indicator {
+    display: block;
+}
+
+
 
 /*
     Init
