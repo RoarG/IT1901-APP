@@ -242,6 +242,8 @@ a {
     border-bottom-right-radius: 6px;
     list-style: none outside none;
     width: 581px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 #notification-body-loading {
     height: 100px;
@@ -254,10 +256,7 @@ a {
     padding-bottom: 25px;
     font-size: 22px;
     padding-right: 60px;
-}
-#notifications-body li .image-overlay, #notifications-body li .image-overlay img {
-    height: 100%;
-    width: 100%;
+    position: relative;
 }
 #notifications-body li .time {
     padding-top: 10px;

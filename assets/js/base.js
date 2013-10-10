@@ -143,6 +143,25 @@ function Base () {
                     
                     $('#notifications-body').html(output);
                     
+                    // Ugly haaack
+                    $('#notifications-body .notification').each(function () {
+                        var $that = $(this);
+                        var that_height = $that.outerHeight();
+                        var that_width = $that.outerWidth()
+                        if ($that.hasClass('.sheep-is-read-1')) {
+                            $('.is-read-indicator, .is-read-indicator img', $that).css({
+                                height: that_height,
+                                width: that_width
+                            });
+                        }
+                        if (!$that.hasClass('sheep-is-sheep-')) {
+                            $('.notification-to-sheep-overlay, .notification-to-sheep-overlay img', $that).css({
+                                height: that_height,
+                                width: that_width
+                            });
+                        }
+                    });
+                    
                     // Reset intiail
                     $('#notifications-body').data('hasinitialvalue', 1);
                 }
@@ -207,7 +226,7 @@ function Base () {
             var depth = Math.abs(parseInt($('#main').css('margin-left'),10) / 640) + 1;
             
             // Set height for the container
-            $('#main').animate({Height: $('#main-'+depth).height()},400);
+            $('#main').css('height', $('#main-'+depth).height());
         },
         mapSpecial : function (mode) {
             $('#nav').animate({marginTop : ((mode)?'-161px':'0px')},400);
@@ -219,14 +238,16 @@ function Base () {
     //
     
     this.handleBack = function () {
+        var self = this;
+        
         // Get the current depth
         var depth = Math.abs(parseInt($('#main').css('margin-left'),10) / 640);
         
         // Send back
-        $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400);
-        
-        // Set height for the container
-        $('#main').css('height',$('#main-'+depth).height());
+        $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400, function () {
+            // Resize the container
+            self.animate.resizeMain();
+        });
         
         // Enable scrolling (if turned off)
         disable_scrolling = false;
@@ -282,7 +303,7 @@ function Base () {
                         self.notifications = json.response.notifications;
                         
                         // Update notification-number in overlay
-                        $('#notifications-top span').html(' ('+ new_notification_value +')');
+                        $('#notifications-top span').html(' ('+ json.response.notifications +')');
                         
                         // Start fetching notifications every 20 seconds
                         self.notification_interval_handler(true);
@@ -326,7 +347,7 @@ function Base () {
                     self.notifications = json.response.notifications;
                     
                     // Update notification-number in overlay
-                    $('#notifications-top span').html(' ('+ new_notification_value +')');
+                    $('#notifications-top span').html(' ('+ json.response.notifications +')');
                     
                     // Start fetching notifications every 20 seconds
                     self.notification_interval_handler(true);
@@ -399,6 +420,7 @@ function Base () {
                     self.animate.slideLeft(output, 2, function () {
                         // Resize
                         self.animate.resizeMain();
+                        console.log('fired');
                     });
                 }
                 else {
