@@ -797,4 +797,48 @@ function Base () {
     //
     // Admin - Log
     //
+    
+    this.admin_log = function (num) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/log/'+num+'?method=get&tpl=admin_log&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: { 'contact' : self.contact },
+            success: function(json) {
+                if (json.code == 200) {
+                    // Check if we should append or compile the entire view
+                    if (num == 1) {
+                        // Generate entire view
+                        var template = _.template(json.tpl.admin_log.base);
+                        var output = template({
+                            inner: _.template(json.tpl.admin_log.row,{items:json.response.log})
+                        });
+                        
+                        // Run the animation
+                        self.animate.slideLeft(output, 2, function () {
+                            // Resize
+                            self.animate.resizeMain();
+                        });
+                    }
+                    else {
+                        // Generate the logs
+                        var output = _.template(json.tpl.admin_log.row,{items:json.response.log});
+                        
+                        // Append the content
+                        $('#notification-list').append(output);
+                        
+                        // Resize the window
+                        self.animate.resizeMain();
+                    }
+                }
+                else {
+                    // Error
+                }
+            }
+        });
+    };
 }

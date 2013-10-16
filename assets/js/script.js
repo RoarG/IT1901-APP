@@ -574,7 +574,7 @@ $(document).ready(function () {
         e.preventDefault();
         
         // Load the content
-        base.admin_log();
+        base.admin_log(1);
     });
     
     //
