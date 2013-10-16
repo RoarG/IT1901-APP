@@ -594,7 +594,7 @@ $(document).ready(function () {
         });
     });
     $(document).on('scroll', function() {
-        if ($('#notification-list').length > 0) {
+        if ($('.active #notification-list').length > 0) {
             if (can_do_ajax) {
                 if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
                     if (!is_loading_new_content) {
