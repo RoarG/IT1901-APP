@@ -117,6 +117,9 @@ $(document).ready(function () {
     //
     
     var base = new Base();
+    var is_loading_new_content = false;
+    var page = 1;
+    var can_do_ajax = true;
     
     //
     // Back-button
@@ -134,6 +137,10 @@ $(document).ready(function () {
             // Handle back-click
             base.handleBack();
         }
+        
+        // Resetting block on dynamic adding ajax-content
+        can_do_ajax = true;
+        page = 1;
     });
     
     //
@@ -573,8 +580,41 @@ $(document).ready(function () {
         // Prevent default behaviour
         e.preventDefault();
         
+        // Avoid load new logs at once
+        can_do_ajax = false;
+        
         // Load the content
-        base.admin_log(1);
+        base.admin_log(1, function (num_logs) {
+            can_do_ajax = true;
+            
+            // If the request returned 20 entries, we can run another fetch
+            if (num_logs != 20) {
+                can_do_ajax = false;
+            }
+        });
+    });
+    $(document).on('scroll', function() {
+        if ($('#notification-list').length > 0) {
+            if (can_do_ajax) {
+                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+                    if (!is_loading_new_content) {
+                        // Updating new vars
+                        is_loading_new_content = true;
+                        page++;
+                        
+                        base.admin_log(page, function (num_logs) {
+                            // No longer loading new content
+                            is_loading_new_content = false;
+                            
+                            // If the request returned 20 entries, we can run another fetch
+                            if (num_logs != 20) {
+                                can_do_ajax = false;
+                            }
+                        });
+                    }
+                }
+            }
+        }
     });
     
     //

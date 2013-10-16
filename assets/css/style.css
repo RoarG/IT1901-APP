@@ -263,7 +263,7 @@ a {
     height: 100px;
     width: 581px;
 }
-#notifications-body li {
+#notifications-body li, #notification-list li {
     height: auto;
     line-height: 28px;
     padding-top: 25px;
@@ -272,7 +272,7 @@ a {
     padding-right: 60px;
     position: relative;
 }
-#notifications-body li .time {
+#notifications-body li .time, #notification-list li .time {
     padding-top: 10px;
     font-size: 18px;
 }
@@ -601,4 +601,16 @@ ul.home-list .image-overlay {
     top: 0px;
     right: 12px;
     display: none;
+}
+
+/*
+    Log
+*/
+
+#notification-list li {
+    padding-left: 35px;
+    padding-right: 35px;
+}
+#notification-list li:after {
+    content: "";
 }

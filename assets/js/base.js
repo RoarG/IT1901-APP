@@ -433,6 +433,9 @@ function Base () {
                     self.animate.slideLeft(output, 2, function () {
                         // Resize
                         self.animate.resizeMain();
+                        
+                        // Scroll to top of page
+                        $('html, body').scrollTop(161);
                     });
                 }
                 else {
@@ -495,6 +498,9 @@ function Base () {
                     self.animate.slideLeft(output, ((base == null)? 3 : base), function () {
                         // Resize
                         self.animate.resizeMain();
+                        
+                        // Scroll to top of page
+                        $('html, body').scrollTop(161);
                     });
                 }
                 else {
@@ -542,6 +548,9 @@ function Base () {
                     self.animate.slideLeft(template, 4, function () {
                         // Resize
                         self.animate.resizeMain();
+                        
+                        // Scroll to top of page
+                        $('html, body').scrollTop(161);
                     });
                 }
                 else {
@@ -658,6 +667,9 @@ function Base () {
                 self.animate.slideLeft(json.tpl.sheep_add.base, 2, function () {
                     // Resize
                     self.animate.resizeMain();
+                    
+                    // Scroll to top of page
+                    $('html, body').scrollTop(161);
                 });
             }
         });
@@ -722,6 +734,9 @@ function Base () {
                     self.animate.slideLeft(output, 2, function () {
                         // Resize
                         self.animate.resizeMain();
+                        
+                        // Scroll to top of page
+                        $('html, body').scrollTop(161);
                     });
                 }
             }
@@ -798,7 +813,7 @@ function Base () {
     // Admin - Log
     //
     
-    this.admin_log = function (num) {
+    this.admin_log = function (num, callback) {
         var self = this;
         
         $.ajax ({
@@ -822,6 +837,14 @@ function Base () {
                         self.animate.slideLeft(output, 2, function () {
                             // Resize
                             self.animate.resizeMain();
+                            
+                            // Scroll to top of page
+                            $('html, body').scrollTop(161);
+                            
+                            // Call callback
+                            if (typeof callback == 'function') {
+                                callback(json.response.log.length);
+                            }
                         });
                     }
                     else {
@@ -833,10 +856,15 @@ function Base () {
                         
                         // Resize the window
                         self.animate.resizeMain();
+                        
+                        // Call callback
+                        if (typeof callback == 'function') {
+                            callback(json.response.log.length);
+                        }
                     }
                 }
                 else {
-                    // Error
+                    return -1;
                 }
             }
         });
