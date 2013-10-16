@@ -649,7 +649,11 @@ function Base () {
                             var map_marker = new google.maps.Marker({
                                 map: self.map,
                                 position: new google.maps.LatLng(current_sheep.lat, current_sheep.lng),
-                                icon: 'assets/css/gfx/loc_test.png',
+                                icon: {
+                                    url: 'assets/css/gfx/loc_test.png',
+                                    size: new google.maps.Size(72, 72),
+                                    origin: new google.maps.Point(0, 0),
+                                    anchor: new google.maps.Point(37, 37)},
                                 visible: true
                             });
                             
