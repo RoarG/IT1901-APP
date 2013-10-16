@@ -122,8 +122,18 @@ $(document).ready(function () {
     // Back-button
     //
     
-    $('#back').on('click',function () {
-        base.handleBack();
+    $('#back-button').on('click',function (e) {
+        // Prevent default
+        e.preventDefault();
+        
+        // Check if currently busy or not
+        if (!base.busy) {
+            // Set busy
+            base.busy = true;
+            
+            // Handle back-click
+            base.handleBack();
+        }
     });
     
     //

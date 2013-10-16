@@ -74,6 +74,13 @@ a {
     line-height: 69px;
     padding-left: 23px;
 }
+#back .image-overlay-back {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 177px;
+    height: 69px;
+}
 
 /*
     Main
