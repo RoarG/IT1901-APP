@@ -432,7 +432,6 @@ function Base () {
                     self.animate.slideLeft(output, 2, function () {
                         // Resize
                         self.animate.resizeMain();
-                        console.log('fired');
                     });
                 }
                 else {
