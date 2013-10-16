@@ -182,11 +182,14 @@ function Base () {
         fadeIn : function (target, html, depth) {
             // If writing to #main, we have to wrap it
             if (target == '#main') {
-                html = '<div id="main-'+depth+'">'+html+'</div>';
+                html = '<div class="active" id="main-'+depth+'">'+html+'</div>';
             }
             
+            // Remove active on all existing objects
+            $('#main > div').removeClass('active');
+            
             $(target).fadeOut(400,function () {
-                $(target).html(html).fadeIn(400);
+                $(target).addClass('active').html(html).fadeIn(400);
             });
         },
         slideLeft : function (html, depth, callback) {
@@ -194,9 +197,12 @@ function Base () {
             var $obj = $('#main-'+depth);
             var current_depth = $('#main > div').length;
             
+            // Remove active on all existing objects
+            $('#main > div').removeClass('active');
+            
             if ($obj.length > 0) {
                 // Object does exits
-                $('#main-'+depth).html(html);
+                $('#main-'+depth).html(html).addClass('active');
                 $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400,function () {
                     // Execute callback if supplied
                     if (typeof callback == 'function') {
@@ -205,7 +211,7 @@ function Base () {
                 });
             }
             else {
-                $('#main').append('<div id="main-'+depth+'">'+html+'</div>').css('width',((current_depth+1)*640));
+                $('#main').append('<div class="active" id="main-'+depth+'">'+html+'</div>').css('width',((current_depth+1)*640));
                 $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400,function () {
                     // Execute callback if supplied
                     if (typeof callback == 'function') {
@@ -229,6 +235,10 @@ function Base () {
             
             // Set height for the container
             $('#main').css('height', $('#main-'+depth).height());
+            
+            // Swap active
+            $('#main > div').removeClass('active');
+            $('#main-'+depth).addClass('active');
         },
         mapSpecial : function (mode) {
             $('#nav').animate({marginTop : ((mode)?'-161px':'0px')},400);
@@ -244,6 +254,10 @@ function Base () {
         
         // Get the current depth
         var depth = Math.abs(parseInt($('#main').css('margin-left'),10) / 640);
+        
+        // Swap active
+        $('#main > div').removeClass('active');
+        $('#main-'+depth).addClass('active');
         
         // Send back
         $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400, function () {
