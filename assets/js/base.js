@@ -248,6 +248,9 @@ function Base () {
         $('#main').animate({marginLeft: '-'+((depth-1)*640)+'px'},400, function () {
             // Resize the container
             self.animate.resizeMain();
+            
+            // Set busy to false
+            self.busy = false;
         });
         
         // Enable scrolling (if turned off)
