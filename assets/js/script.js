@@ -498,13 +498,13 @@ $(document).ready(function () {
     });
     $('#main').on('submit','.admin-alert-form',function () {
         // Animate
-        $('div',this).slideUp(400,function () {
+        $('.block-alert',this).addClass('removed').slideUp(400, function () {
             // Resize!
             base.animate.resizeMain();
         });
         
         // Send request
-        base.admin_alert_remove($(this).data('epost'));
+        base.admin_alert_remove();
         
         // Return to avoid submitting the form
         return false;

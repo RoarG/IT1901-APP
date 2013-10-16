@@ -36,6 +36,7 @@ function Base () {
     this.notifications = 0,
     this.disable_scrolling = false,
     this.map = null,
+    this.queued_ajax = null,
     this.busy = false,
     this.notification_interval = null,
     this.contact = null,
@@ -726,25 +727,34 @@ function Base () {
             }
         });
     };
-    this.admin_alert_remove = function(elm) {
+    this.admin_alert_remove = function() {
         var self = this;
         
         // Building new contact-array without the one element we wish to delete
         var new_arr = [];
         var local_contact = self.contact;
         
-        for (var i = 0; i < local_contact.length; i++) {
-            var local_local_contact = local_contact[i];
-            
-            // Check if we can append this contact-person or not
-            if (local_local_contact.epost != elm) {
-                // Append
-                new_arr.push(local_local_contact);
+        $('.admin-alert-form').each(function () {
+            // Check if removed
+            if (!$('.block-alert', this).hasClass('removed')) {
+                var this_form_epost = $(this).data('epost');
+                for (var i = 0; i < local_contact.length; i++) {
+                    var local_local_contact = local_contact[i];
+                    
+                    // Check if we can append this contact-person or not
+                    if (local_local_contact.epost == this_form_epost) {
+                        // Append
+                        new_arr.push(local_local_contact);
+                    }
+                }
             }
-        }
+        });
+        
+        // Setting new contact
+        self.contact = new_arr;
         
         // Doing the request
-        $.ajax ({
+        self.queued_ajax = $.ajax ({
             url: 'api/contact?method=put&access_token='+self.token,
             cache: false,
             headers: { 'cache-control': 'no-cache' },
