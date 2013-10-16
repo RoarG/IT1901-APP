@@ -36,6 +36,7 @@ function Base () {
     this.notifications = 0,
     this.disable_scrolling = false,
     this.map = null,
+    this.busy = false,
     this.notification_interval = null,
     this.contact = null,
     this.months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'],
@@ -351,12 +352,20 @@ function Base () {
                     
                     // Start fetching notifications every 20 seconds
                     self.notification_interval_handler(true);
+                    
+                    self.busy = false;
                 }
                 else {
                     var $wrong_box = $('#login_wrong_pw');
                     if ($wrong_box.is(':hidden')) {
-                        $wrong_box.slideDown(400);
+                        $wrong_box.fadeIn(400);
                     }
+                    
+                    // Show submit-button again
+                    $('#login_sbmt').stop().fadeIn(400);
+                    $('#login_loader').stop().fadeOut(400, function () {
+                        self.busy = false;
+                    });
                 }
             }
         });

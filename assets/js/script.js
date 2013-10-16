@@ -158,8 +158,21 @@ $(document).ready(function () {
     //
     
     $('#main').on('submit','#login_form',function () {
-        // Send the login-info to the base-class
-        base.login($(this).serialize());
+        // Check if currently busy
+        if (!base.busy) {
+            // Set busy
+            base.busy = true;
+            
+            // Tranfser this
+            var $self = $(this);
+            
+            // Hide button, show loader
+            $('#login_sbmt').stop().fadeOut(400);
+            $('#login_loader').stop().fadeIn(400, function () {
+                // Send the login-info to the base-class
+                base.login($self.serialize());
+            });
+        }
         
         // Return false to avoid the actual form from getting submitted
         return false;

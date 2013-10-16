@@ -175,6 +175,13 @@ a {
 .block-logout {
     padding-bottom: 25px;
 }
+.loader {
+    width: 128px;
+    height: 100px;
+    background-image: url('gfx/ajax-loader-wide.gif');
+    background-position: top left;
+    background-repeat: no-repeat;
+}
 
 /*
     Notification
@@ -576,4 +583,15 @@ ul.home-list .image-overlay {
     width: 518px;
     padding-right: 4px;
     resize: none;
+}
+
+/*
+    Login
+*/
+
+#login_loader {
+    position: absolute;
+    top: 0px;
+    right: 12px;
+    display: none;
 }
