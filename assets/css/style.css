@@ -374,6 +374,34 @@ ul.home-list .image-overlay {
     display: block;
     height: 320px;
 }
+.map-overlay {
+    width: 300px;
+    height: 200px;
+    padding: 20px;
+}
+.map-overlay h2 {
+    font-size: 23px;
+    font-weight: bold;
+    height: 69px;
+    line-height: 69px;
+}
+.map-overlay p {
+    font-size: 14px;
+    line-height: 23px;
+}
+.map-overlay input {
+    border: 1px solid #8CC7ED;
+    border-radius: 6px 6px 6px 6px;
+    cursor: pointer;
+    height: 40px;
+    padding-left: 7px;
+    padding-right: 7px;
+    color: #d4e5f5;
+    background-color: #1c3f93;
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 15px;
+}
 
 /*
     Alaert

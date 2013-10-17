@@ -280,6 +280,13 @@ $(document).ready(function () {
         // Load the content
         base.sheep_map(null);
     });
+    $('#main').on('click', '.map-overlay input', function () {
+        // Unset map-specifics
+        base.tiggleMapSpecial(false);
+        
+        // Load one sheep
+        base.sheep_one($(this).data('id'), 2);
+    });
     
     //
     // Sheep - Add

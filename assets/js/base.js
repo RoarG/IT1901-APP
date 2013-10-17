@@ -39,6 +39,7 @@ function Base () {
     this.queued_ajax = null,
     this.busy = false,
     this.notification_interval = null,
+    this.map_objects = {'marker': [], 'infowindow': []},
     this.contact = null,
     this.months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'],
     this.displayingMap = false;
@@ -281,6 +282,15 @@ function Base () {
             this.displayingMap = false;
             this.animate.mapSpecial(false);
         }
+    };
+    
+    //
+    //
+    //
+    
+    this.tiggleMapSpecial = function (state) {
+        this.displayingMap = state;
+        this.animate.mapSpecial(state);
     };
     
     //
@@ -643,6 +653,10 @@ function Base () {
                             mapTypeId: google.maps.MapTypeId.ROADMAP,
                             streetViewControl: false});
                         
+                        // Empty map-objects
+                        self.map_objects.marker = [];
+                        self.map_objects.infowindow = [];
+                        
                         // Get all the sheeps and display them
                         for (var i = 0; i < json.response.sheep.length; i++) {
                             var current_sheep = json.response.sheep[i];
@@ -654,10 +668,34 @@ function Base () {
                                     size: new google.maps.Size(72, 72),
                                     origin: new google.maps.Point(0, 0),
                                     anchor: new google.maps.Point(37, 37)},
-                                visible: true
+                                visible: true,
+                                title: current_sheep.name+' (#'+current_sheep.identification+')'
                             });
                             
-                            // TODO, marker + infobox
+                            // Add marker to the array
+                            self.map_objects.marker.push(map_marker);
+                            
+                            // Konverterer siste oppdatering
+                            var last_updated = current_sheep.last_updated.split(' ');
+                            var last_updated_date = last_updated[0].split('-');
+                            var last_updated_pretty = parseInt(last_updated_date[2])+'. '+self.months[parseInt(last_updated_date[1])-1]+' '+last_updated_date[0]+', kl: '+last_updated[1];
+                            
+                            // Generate infowindow content and eventListener
+                            var temp_infowindow = new google.maps.InfoWindow({
+                                content: '<div class="map-overlay"><h2>' + current_sheep.name+' (#'+current_sheep.identification+')'+'</h2><p><b>Status:</b> '+((current_sheep.alive == '1')?'Lever':'Død')+'</p><p><b>Posisjon:</b> ['+current_sheep.lat+', '+current_sheep.lng+']</p><p><b>Siste oppdatering:</b> '+last_updated_pretty+'</p> <input type="button" value="Vis info" data-id="'+current_sheep.id+'"/></div>'
+                            });
+                            
+                            // Add infowindow to the array
+                            self.map_objects.infowindow.push(temp_infowindow);
+                            
+                            google.maps.event.addListener(self.map_objects.marker[i], 'click', function(key) {
+                                return function() {
+                                    for (var j = 0; j < self.map_objects.infowindow.length; j++) {
+                                        self.map_objects.infowindow[j].close();
+                                    }
+                                    self.map_objects.infowindow[key].open(self.map, self.map_objects.marker[key]);
+                                }
+                            }(i));
                         }
                     });
                 }
