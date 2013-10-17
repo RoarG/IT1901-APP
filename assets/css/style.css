@@ -233,14 +233,14 @@ a {
     display: none;
     z-index: 200;
 }
-#notifications-top {
+#notifications-top, #notifications-bottom {
     background-image: url("gfx/block-top-bg");
     background-repeat: repeat-x;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     height: 105px;
 }
-#notifications-top h2 {
+#notifications-top h2, #notifications-bottom h2 {
     color: #FFFFFF;
     font-size: 42px;
     font-weight: bold;
@@ -249,11 +249,21 @@ a {
     margin-left: 120px;
     text-shadow: 0 4px 3px rgba(0, 0, 0, 0.4), 0 8px 13px rgba(0, 0, 0, 0.1), 0 18px 23px rgba(0, 0, 0, 0.1);
 }
+#notifications-bottom {
+    border-radius: 0px 0px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+#notifications-bottom .image-overlay-notification {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 583px;
+    height: 105px;
+}
 #notifications-body {
     background-image: url("gfx/block-bg.jpg");
     border: 1px solid #8CC7ED;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
     list-style: none outside none;
     width: 581px;
     max-height: 500px;
