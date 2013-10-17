@@ -217,7 +217,7 @@ function Base () {
                     }
                     else {
                         // Generate the logs
-                        var output = _.template(json.tpl.admin_log.row,{items:json.response.notifications});
+                        var output = _.template(json.tpl.notifications.row,{items:json.response.notifications});
                         
                         // Append the content
                         $('#notifications-all').append(output);
@@ -844,8 +844,30 @@ function Base () {
     // Admin - Edit
     //
     
-    
-    
+    this.admin_edit = function () {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/user?method=get&tpl=admin_edit&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                if (json.code == 200) {               
+                    var output = _.template(json.tpl.admin_edit.base, json.response);
+                    
+                    // Run the animation
+                    self.animate.slideLeft(output, 2, function () {
+                        // Resize
+                        self.animate.resizeMain();
+                        
+                        // Scroll to top of page
+                        $('html, body').scrollTop(161);
+                    });
+                }
+            }
+        });
+    };
     //
     // Admin - Alert
     //

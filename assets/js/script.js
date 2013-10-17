@@ -174,11 +174,18 @@ $(document).ready(function () {
         // Prevent default
         e.preventDefault();
         
+        // Check if we need to unfuck map-hack
+        if ($('.active #map').length > 0) {
+            // Undo map
+            base.animate.mapSpecial(false);
+        }
+        
+        // Fade out the notification-holder
         $('#notification-window, #notification-window-overlay').fadeOut(400);
         
         // Reset variables
         page = 1;
-        can_do_ajax = true;
+        can_do_ajax = false;
         is_loading_new_content = false;
         
         // Load all notifications
@@ -275,8 +282,11 @@ $(document).ready(function () {
         
         // Check if clicked from the notification-overlay
         if ($(this).hasClass('from-notification')) {
-            // Trigger click on background to hide the notification-overlay
-            $('#notification-window-overlay').trigger('click');
+            // Check if we should trigger or not
+            if ($(this).parent().parent().parent().attr('id') != 'notifications-all') {
+                // Trigger click on background to hide the notification-overlay
+                $('#notification-window-overlay').trigger('click');
+            }
             
             // Load the content
             base.sheep_one($(this).data('id'), 2);
@@ -643,6 +653,9 @@ $(document).ready(function () {
             if (num_logs != 20) {
                 can_do_ajax = false;
             }
+            
+            // Reset value of page
+            page = 1;
         });
     });
     $(document).on('scroll', function() {
