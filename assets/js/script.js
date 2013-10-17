@@ -150,6 +150,7 @@ $(document).ready(function () {
     $('#notifications, #notification-window-overlay').on('click',function (e) {
         // Prevent default
         e.preventDefault();
+        
         // Toggle show/hide on notification-window based on it's current state
         $notification_window = $('#notification-window');
         
@@ -167,6 +168,50 @@ $(document).ready(function () {
         else {
             $('#notification-window-overlay').fadeOut(400);
             $notification_window.hide();
+        }
+    });
+    $('#notification-all').on('click', function(e) {
+        // Prevent default
+        e.preventDefault();
+        
+        $('#notification-window, #notification-window-overlay').fadeOut(400);
+        
+        // Reset variables
+        page = 1;
+        can_do_ajax = true;
+        is_loading_new_content = false;
+        
+        // Load all notifications
+        base.notification_all(1, function (num_notifications) {
+            can_do_ajax = true;
+            
+            // If the request returned 20 entries, we can run another fetch
+            if (num_notifications != 20) {
+                can_do_ajax = false;
+            }
+        });
+    });
+    $(document).on('scroll', function() {
+        if ($('.active #notifications-all').length > 0) {
+            if (can_do_ajax) {
+                if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+                    if (!is_loading_new_content) {
+                        // Updating new vars
+                        is_loading_new_content = true;
+                        page++;
+                        
+                        base.notification_all(page, function (num_notifications) {
+                            // No longer loading new content
+                            is_loading_new_content = false;
+                            
+                            // If the request returned 20 entries, we can run another fetch
+                            if (num_notifications != 20) {
+                                can_do_ajax = false;
+                            }
+                        });
+                    }
+                }
+            }
         }
     });
     

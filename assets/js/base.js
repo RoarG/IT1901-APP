@@ -173,7 +173,90 @@ function Base () {
                 }
             }
         });
-    }
+    };
+    this.notification_all = function (num, callback) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/notification/'+num+'?method=get&access_token='+self.token+'&tpl=notifications',
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                if (json.code == 200) {
+                    for (var i = 0; i < json.response.notifications.length; i++) {
+                        if (json.response.notifications[i].sheep != null) {
+                            json.response.notifications[i].sheep_overlay = '<div class="notification-to-sheep-overlay image-overlay"><a class="sheep-single-view from-notification" href="#" data-id="'+json.response.notifications[i].sheep+'"><img src="assets/css/gfx/blank2x2.png" alt="" /></a></div>';
+                        }
+                        else {
+                            json.response.notifications[i].sheep_overlay = '';
+                        }
+                    }
+                    
+                    // Check if we should append or compile the entire view
+                    if (num == 1) {
+                        // Generate entire view
+                        var template = _.template(json.tpl.notifications.base_view);
+                        var output = template({
+                            inner: _.template(json.tpl.notifications.row,{items:json.response.notifications})
+                        });
+                        
+                        // Run the animation
+                        self.animate.slideLeft(output, 2, function () {
+                            // Resize
+                            self.animate.resizeMain();
+                            
+                            // Scroll to top of page
+                            $('html, body').scrollTop(161);
+                            
+                            // Call callback
+                            if (typeof callback == 'function') {
+                                callback(json.response.notifications.length);
+                            }
+                        });
+                    }
+                    else {
+                        // Generate the logs
+                        var output = _.template(json.tpl.admin_log.row,{items:json.response.notifications});
+                        
+                        // Append the content
+                        $('#notifications-all').append(output);
+                        
+                        // Resize the window
+                        self.animate.resizeMain();
+                        
+                        // Call callback
+                        if (typeof callback == 'function') {
+                            callback(json.response.notifications.length);
+                        }
+                    }
+                    
+                    $('#notifications-all .notification').each(function () {
+                        var $that = $(this);
+                        var that_height = $that.outerHeight();
+                        var that_width = $that.outerWidth()
+                        if ($that.hasClass('.sheep-is-read-1')) {
+                            $('.is-read-indicator, .is-read-indicator img', $that).css({
+                                height: that_height,
+                                width: that_width
+                            });
+                        }
+                        if (!$that.hasClass('sheep-is-sheep-')) {
+                            $('.notification-to-sheep-overlay, .notification-to-sheep-overlay img', $that).css({
+                                height: that_height,
+                                width: that_width
+                            });
+                        }
+                    });
+                }
+                else {
+                    // Error
+                }
+
+
+            }
+        });
+    };
     
     //
     // Animations
@@ -920,7 +1003,7 @@ function Base () {
                     }
                 }
                 else {
-                    return -1;
+                    // Error
                 }
             }
         });

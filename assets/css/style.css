@@ -273,7 +273,7 @@ a {
     height: 100px;
     width: 581px;
 }
-#notifications-body li, #notification-list li {
+#notifications-body li, #notification-list li, #notifications-all li {
     height: auto;
     line-height: 28px;
     padding-top: 25px;
@@ -282,7 +282,7 @@ a {
     padding-right: 60px;
     position: relative;
 }
-#notifications-body li .time, #notification-list li .time {
+#notifications-body li .time, #notification-list li .time, #notifications-all li .time {
     padding-top: 10px;
     font-size: 18px;
 }
