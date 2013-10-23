@@ -742,12 +742,26 @@ function Base () {
                         
                         // Get all the sheeps and display them
                         for (var i = 0; i < json.response.sheep.length; i++) {
+                            // Reference to current sheep
                             var current_sheep = json.response.sheep[i];
+                            
+                            // Defining the color of the marker
+                            var marker_image = 'marker_blue.png';
+                            
+                            if (sheep != null && sheep == current_sheep.id) {
+                                // The centered sheep should be displayed as green
+                                marker_image = 'marker_green.png';
+                            }
+                            else if (current_sheep.alive == '0') {
+                                // This sheep is dead!
+                                marker_image = 'marker_red.png';
+                            }
+                            
                             var map_marker = new google.maps.Marker({
                                 map: self.map,
                                 position: new google.maps.LatLng(current_sheep.lat, current_sheep.lng),
                                 icon: {
-                                    url: 'assets/css/gfx/loc_test.png',
+                                    url: 'assets/css/gfx/markers/'+marker_image,
                                     size: new google.maps.Size(72, 72),
                                     origin: new google.maps.Point(0, 0),
                                     anchor: new google.maps.Point(37, 37)},
