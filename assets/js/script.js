@@ -200,6 +200,8 @@ $(document).ready(function () {
         if ($('.active #map').length > 0) {
             // Undo map
             base.animate.mapSpecial(false);
+            clearInterval(base.map_interval);
+            base.displayingMap = false;
         }
         
         // Fade out the notification-holder
@@ -314,6 +316,8 @@ $(document).ready(function () {
             if ($('.active #map').length > 0) {
                 // Undo map
                 base.animate.mapSpecial(false);
+                clearInterval(base.map_interval);
+                base.displayingMap = false;
             }
             
             // Load the content

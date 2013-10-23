@@ -327,14 +327,6 @@ function Base () {
         },
         mapSpecial : function (mode) {
             $('#nav').animate({marginTop : ((mode)?'-161px':'0px')},400);
-            
-            // Update state
-            displayingMap = mode;
-            
-            // Turn fetching off
-            if (!mode) {
-                clearInterval(this.map_interval);
-            }
         }
     };
     
@@ -372,6 +364,9 @@ function Base () {
         // Check if currently displaying map
         if (this.displayingMap) {
             this.displayingMap = false;
+            
+            clearInterval(this.map_interval);
+            
             this.animate.mapSpecial(false);
         }
     };
@@ -729,7 +724,7 @@ function Base () {
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
             success: function(json) {
-                if (json.code == 200) {               
+                if (json.code == 200) {
                     // Run the animations
                     self.animate.mapSpecial(true);
                     self.animate.slideLeft(json.tpl.sheep_map.base, 2, function () {
@@ -748,7 +743,7 @@ function Base () {
                         self.map = new google.maps.Map(document.getElementById("map"),{
                             center: new google.maps.LatLng(pos.lat, pos.lng), 
                             zoom: 15,
-                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            mapTypeId: google.maps.MapTypeId.SATELLITE,
                             streetViewControl: false});
                         
                         // Empty map-objects
@@ -809,6 +804,42 @@ function Base () {
                                 }
                             }(i));
                         }
+                        
+                        // Start fetching positions and values every 20 second
+                        self.map_interval = setInterval(function (self_ref, sheep) {
+                            return function () {
+                                var self = self_ref;
+                                
+                                // Check if displaying all of just one
+                                if (sheep == null) {
+                                    var api_additions = '';
+                                }
+                                else {
+                                    var api_additions = '/'+sheep;
+                                }
+                                
+                                $.ajax ({
+                                    url: 'api/map'+api_additions+'?method=get&tpl=sheep_map&access_token='+self.token,
+                                    cache: false,
+                                    headers: { 'cache-control': 'no-cache' },
+                                    dataType: 'json',
+                                    success: function(json) {
+                                        if (json.code == 200) {
+                                            for (var i = 0; i < json.response.sheep.length; i++) {
+                                                // Reference to current sheep
+                                                var current_sheep = json.response.sheep[i];
+                                                
+                                                // Update position
+                                                self.map_objects.marker[i].setPosition(new google.maps.LatLng(current_sheep.lat, current_sheep.lng));
+                                                
+                                                // Update text
+                                                self.map_objects.infowindow[i].setContent('<div class="map-overlay"><h2>' + current_sheep.name+' (#'+current_sheep.identification+')'+'</h2><p><b>Status:</b> '+((current_sheep.alive == '1')?'Lever':'Død')+'</p><p><b>Posisjon:</b> ['+current_sheep.lat+', '+current_sheep.lng+']</p><p><b>Siste oppdatering:</b> '+last_updated_pretty+'</p> <input type="button" value="Vis info" data-id="'+current_sheep.id+'"/></div>');
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }(self, sheep), 2000);
                     });
                 }
                 else {
