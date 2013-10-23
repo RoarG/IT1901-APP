@@ -34,9 +34,7 @@ function Base () {
     this.ls = null,
     this.token = null,
     this.notifications = 0,
-    this.disable_scrolling = false,
     this.map = null,
-    this.queued_ajax = null,
     this.busy = false,
     this.notification_interval = null,
     this.map_interval = null,
@@ -73,6 +71,48 @@ function Base () {
     
     this.kick_out = function () {
         // If something goes wrong, the user ends up here
+        var self = this;
+        
+        // Check if map-unfuck
+        if ($('.active #map').lenght > 0) {
+            self.animate.mapSpecial(false);
+        }
+        
+        // Clear all intervals
+        clearInterval(self.notification_interval);
+        clearInterval(self.map_interval);
+        
+        // Reset all other variables
+        self.displayingMap = false;
+        self.map_objects.markers = []; self.map_objects.infowindow = [];
+        self.contact = null;
+        self.notifications = 0;
+        self.busy = false;
+        self.displayingMap = false;
+        
+        // Reset tokens
+        self.token = null;
+        self.ls.setItem('api-token', null);
+        
+        // Hide back and notification-holder
+        $('#back, #notifications').hide();
+        
+        // Load the login-template
+        $.ajax ({
+            url: 'api/?tpl=login',
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            success: function(json) {
+                self.animate.backToStart(json.tpl.login.base, function () {
+                    // Reset title
+                    document.title = 'Sheep Locator';
+                    
+                    // Alert, telling the user he was kicked out
+                    alert('Noe gikk galt. Du har blitt logget ut av systemet. Dette kan være fordi brukeren din ble logget inn et annet sted.');
+                });
+            }
+        });
     }
     
     //
@@ -107,7 +147,8 @@ function Base () {
                             }
                         }
                         else {
-                            // Error here
+                            // Kick out of the system
+                            self.kick_out();
                         }
                     }
                 });
@@ -170,7 +211,8 @@ function Base () {
                     $('#notifications-body').data('hasinitialvalue', 1);
                 }
                 else {
-                    // Error
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
@@ -251,10 +293,9 @@ function Base () {
                     });
                 }
                 else {
-                    // Error
+                    // Kick out of the system
+                    self.kick_out();
                 }
-
-
             }
         });
     };
@@ -327,7 +368,33 @@ function Base () {
         },
         mapSpecial : function (mode) {
             $('#nav').animate({marginTop : ((mode)?'-161px':'0px')},400);
-        }
+        },
+        backToStart : function (html, callback) {
+            // Check if we should animate left or just fade the content
+            if ($('#main-1').hasClass('active')) {
+                $('#main-1').fadeOut(400, function () {
+                    $(this).html(html);
+                    $(this).fadeIn(400, function () {
+                        if (typeof callback == 'function') {
+                            callback();
+                        }
+                    });
+                });
+            }
+            else {
+                // Not on the first page, animate left slide
+                $('#main > div').removeClass('active');
+                
+                $('#main-1').html(html);
+                $('#main').animate({marginLeft: '0px'},400,function () {
+                    // Execute callback if supplied
+                    if (typeof callback == 'function') {
+                        callback();
+                    }
+                    this.animate.resizeMain();
+                });
+            }
+        },
     };
     
     //
@@ -541,7 +608,8 @@ function Base () {
                     });
                 }
                 else {
-                    // Something went wrong!
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
@@ -621,7 +689,8 @@ function Base () {
                     });
                 }
                 else {
-                    // Something went wrong!
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
@@ -640,7 +709,8 @@ function Base () {
                     self.sheep_all();
                 }
                 else {
-                    // Something went wrong!
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
@@ -671,7 +741,8 @@ function Base () {
                     });
                 }
                 else {
-                    // Something went wrong!
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
@@ -691,6 +762,10 @@ function Base () {
                 if (code == 200) {
                     // Display the new sheep
                     self.sheep_one(json.response.id);
+                }
+                else if (code == 121) {
+                    // Kick out of the system
+                    self.kick_out();
                 }
                 else {
                     // Return error-message!
@@ -855,7 +930,8 @@ function Base () {
                     });
                 }
                 else {
-                    // Something went wrong!
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
@@ -904,6 +980,10 @@ function Base () {
                     // Display the new sheep
                     self.sheep_one(json.response.id);
                 }
+                else if (code == 121) {
+                    // Kick out of the system
+                    self.kick_out();
+                }
                 else {
                     // Return error-message!
                     alert('Noe gikk galt. Systemet returnerte feilkode #'+code+' og teksten '+json.msg);
@@ -925,7 +1005,7 @@ function Base () {
             headers: { 'cache-control': 'no-cache' },
             dataType: 'json',
             success: function(json) {
-                if (json.code == 200) {               
+                if (json.code == 200) {
                     var output = _.template(json.tpl.admin_edit.base, json.response);
                     
                     // Run the animation
@@ -936,6 +1016,10 @@ function Base () {
                         // Scroll to top of page
                         $('html, body').scrollTop(161);
                     });
+                }
+                else {
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
@@ -967,6 +1051,10 @@ function Base () {
                         // Display error-text
                         $error_text.stop().fadeIn(400);
                     }
+                }
+                else if (json.code == 121) {
+                    // Creditials not matching
+                    self.kick_out();
                 }
                 else {
                     // Unknown error
@@ -1000,6 +1088,10 @@ function Base () {
                     
                     // Quick and ugly alert goes here! :D
                     alert('Endringene er lagret.');
+                }
+                else if (json.code == 121) {
+                    // Kick out of the system
+                    self.kick_out();
                 }
                 else {
                     // Unknown error
@@ -1045,6 +1137,10 @@ function Base () {
                         $('html, body').scrollTop(161);
                     });
                 }
+                else {
+                    // Kick out of the system
+                    self.kick_out();
+                }
             }
         });
     };
@@ -1075,7 +1171,7 @@ function Base () {
         self.contact = new_arr;
         
         // Doing the request
-        self.queued_ajax = $.ajax ({
+        $.ajax ({
             url: 'api/contact?method=put&access_token='+self.token,
             cache: false,
             headers: { 'cache-control': 'no-cache' },
@@ -1085,6 +1181,12 @@ function Base () {
             success: function(json) {
                 // Resize the window
                 self.animate.resizeMain();
+                
+                // Check if should be kicked out of the system
+                if (json.code == 121) {
+                    // Kick out of the system
+                    self.kick_out();
+                }
             }
         });
     };
@@ -1111,6 +1213,12 @@ function Base () {
                 
                 // Reset form
                 $('#name,#epost').val('');
+                
+                // Check if should be kicked out of the system
+                if (json.code == 121) {
+                    // Kick out of the system
+                    self.kick_out();
+                }
             }
         });
     };
@@ -1170,7 +1278,8 @@ function Base () {
                     }
                 }
                 else {
-                    // Error
+                    // Kick out of the system
+                    self.kick_out();
                 }
             }
         });
