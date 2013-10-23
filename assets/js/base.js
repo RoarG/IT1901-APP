@@ -834,12 +834,24 @@ function Base () {
                                                 
                                                 // Update text
                                                 self.map_objects.infowindow[i].setContent('<div class="map-overlay"><h2>' + current_sheep.name+' (#'+current_sheep.identification+')'+'</h2><p><b>Status:</b> '+((current_sheep.alive == '1')?'Lever':'Død')+'</p><p><b>Posisjon:</b> ['+current_sheep.lat+', '+current_sheep.lng+']</p><p><b>Siste oppdatering:</b> '+last_updated_pretty+'</p> <input type="button" value="Vis info" data-id="'+current_sheep.id+'"/></div>');
+                                                
+                                                // Update marker-image
+                                                var marker_image = 'marker_blue.png';
+                                                if (current_sheep.alive == '0') {
+                                                    marker_image = 'marker_red.png';
+                                                }
+                                                
+                                                self.map_objects.marker[i].setIcon({
+                                                    url: 'assets/css/gfx/markers/'+marker_image,
+                                                    size: new google.maps.Size(72, 72),
+                                                    origin: new google.maps.Point(0, 0),
+                                                    anchor: new google.maps.Point(37, 37)});
                                             }
                                         }
                                     }
                                 });
                             }
-                        }(self, sheep), 2000);
+                        }(self, sheep), 20000);
                     });
                 }
                 else {
