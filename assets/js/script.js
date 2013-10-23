@@ -310,6 +310,12 @@ $(document).ready(function () {
                 $('#notification-window-overlay').trigger('click');
             }
             
+            // Check if we need to unfuck map-hack
+            if ($('.active #map').length > 0) {
+                // Undo map
+                base.animate.mapSpecial(false);
+            }
+            
             // Load the content
             base.sheep_one($(this).data('id'), 2);
         }

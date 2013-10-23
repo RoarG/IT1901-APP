@@ -274,7 +274,7 @@ function Base () {
             $('#main > div').removeClass('active');
             
             $(target).fadeOut(400,function () {
-                $(target).addClass('active').html(html).fadeIn(400);
+                $(target).html(html).fadeIn(400);
             });
         },
         slideLeft : function (html, depth, callback) {
@@ -328,10 +328,12 @@ function Base () {
         mapSpecial : function (mode) {
             $('#nav').animate({marginTop : ((mode)?'-161px':'0px')},400);
             
+            // Update state
+            displayingMap = mode;
+            
             // Turn fetching off
             if (!mode) {
                 clearInterval(this.map_interval);
-                console.log('turn fetching off');
             }
         }
     };
