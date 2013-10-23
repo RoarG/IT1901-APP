@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<?php include_once 'base.php'; ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Etc START -->
-    <base href="http://dev.optimuscrime.net/prosjekt1/" />
+    <base href="<?php echo $base->getBaseUrl(); ?>" />
     <title>Sheep Locator</title>
     <!-- Etc END -->
     
