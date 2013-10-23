@@ -1,4 +1,9 @@
-IT1901-GR6_2
-============
+G6 - HTML5 app
+==============
 
-Repo2
+Written by:
+- Thomas Gautvedt
+- Aina Elisabeth Thunestveit
+- Geir Forslund
+- Roar Gjøvaag
+- Jostein Granli
