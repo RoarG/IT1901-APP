@@ -87,7 +87,7 @@ function check_required_callback_add() { // Check if there are any fields with r
         }
     }
 }
-function check_required_callback_add_dyamic(form,err) { // Check if there are any fields with required-error on them left in the form
+function check_required_callback_add_dyamic(form, err) { // Check if there are any fields with required-error on them left in the form
     var $error_text = $('#'+err);
     if ($error_text.is(':visible')) {
         // Do the check
@@ -147,7 +147,7 @@ $(document).ready(function () {
     // Back-button
     //
     
-    $('#back-button').on('click',function (e) {
+    $('#back-button').on('click', function (e) {
         // Prevent default
         e.preventDefault();
         
@@ -169,7 +169,7 @@ $(document).ready(function () {
     // Notifications
     //
     
-    $('#notifications, #notification-window-overlay').on('click',function (e) {
+    $('#notifications, #notification-window-overlay').on('click', function (e) {
         // Prevent default
         e.preventDefault();
         
@@ -222,7 +222,7 @@ $(document).ready(function () {
             }
         });
     });
-    $(document).on('scroll', function() {
+    $(document).on('scroll', function () {
         if ($('.active #notifications-all').length > 0) {
             if (can_do_ajax) {
                 if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
@@ -250,7 +250,7 @@ $(document).ready(function () {
     // Login
     //
     
-    $('#main').on('submit','#login_form',function () {
+    $('#main').on('submit', '#login_form', function () {
         // Check if currently busy
         if (!base.busy) {
             // Set busy
@@ -275,7 +275,7 @@ $(document).ready(function () {
     // Log out
     //
     
-    $('#main').on('click','#log-out',function (e) {
+    $('#main').on('click', '#log-out', function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
@@ -293,7 +293,7 @@ $(document).ready(function () {
     // Sheep - Display all
     //
     
-    $('#main').on('click','#home-all',function (e) {
+    $('#main').on('click', '#home-all', function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
@@ -328,7 +328,7 @@ $(document).ready(function () {
             base.sheep_one($(this).data('id'), null);
         } 
     });
-    $('#main').on('click','#sheep_single_delete',function (e) {
+    $('#main').on('click', '#sheep_single_delete',function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
@@ -341,14 +341,14 @@ $(document).ready(function () {
             base.sheep_one_delete($(this).data('id'));
         }
     });
-    $('#main').on('click','#sheep_single_edit',function (e) {
+    $('#main').on('click', '#sheep_single_edit', function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
         // Load edit
         base.sheep_one_edit($(this).data('id'));
     });
-    $('#main').on('click','#sheep_single_map',function (e) {
+    $('#main').on('click', '#sheep_single_map', function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
@@ -360,7 +360,7 @@ $(document).ready(function () {
     // Sheep - Display on map
     //
     
-    $('#main').on('click','#home-map',function (e) {
+    $('#main').on('click', '#home-map', function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
@@ -379,7 +379,7 @@ $(document).ready(function () {
     // Sheep - Add
     //
     
-    $('#main').on('click','#home-add',function (e) {
+    $('#main').on('click', '#home-add', function (e) {
         // Prevent default behaviour
         e.preventDefault();
         
