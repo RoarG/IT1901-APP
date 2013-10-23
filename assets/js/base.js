@@ -951,12 +951,67 @@ function Base () {
             type: 'post',
             data: form_data,
             success: function(json) {
+                $error_text = $('#admin_edit_error2');
                 if (json.code == 200) {               
-                    //
+                    // This worked!
+                    $('#current_password, #new_password1, #new_password2').val('');
+                    $error_text.hide();
+                    
+                    // Quick and ugly alert goes here! :D
+                    alert('Du har nå endret passord');
+                }
+                else if (json.code == 192) {
+                    // Old password was incorrect
+                    $error_text.html('Det nåværende passordet er feil.');
+                    if ($error_text.is(':hidden')) {
+                        // Display error-text
+                        $error_text.stop().fadeIn(400);
+                    }
+                }
+                else {
+                    // Unknown error
+                    $error_text.html('En ukjent feil oppsto, prøv igjen');
+                    if ($error_text.is(':hidden')) {
+                        // Display error-text
+                        $error_text.stop().fadeIn(400);
+                    }
                 }
             }
         });
     };
+    this.admin_edit_submit_settings = function (form_data, system) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/user?method=put&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: form_data,
+            success: function(json) {
+                $error_text = $('#admin_edit_error1');
+                if (json.code == 200) {               
+                    // This worked!
+                    $error_text.hide();
+                    
+                    // Update title (in case the name of the system was changed)
+                    document.title = 'Sheep Locator :: '+system;
+                    
+                    // Quick and ugly alert goes here! :D
+                    alert('Endringene er lagret.');
+                }
+                else {
+                    // Unknown error
+                    $error_text.html('En ukjent feil oppsto, prøv igjen');
+                    if ($error_text.is(':hidden')) {
+                        // Display error-text
+                        $error_text.stop().fadeIn(400);
+                    }
+                }
+            }
+        });
+    }
     
     //
     // Admin - Alert

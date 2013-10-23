@@ -567,7 +567,33 @@ $(document).ready(function () {
     });
     $('#main').on('submit', '#admin_edit_form1, #admin_edit_form2', function () {
         if (this.id == 'admin_edit_form1') {
-            //
+            // System/user-info goes here
+            var error = false;
+            if ($('#name').val().length == 0) {
+                $('#name').addClass('required-error').animate({borderColor: 'red'});
+                error = true;
+            }
+            if ($('#email').val().length == 0 || !checkemail($('#email').val())) {
+                $('#email').addClass('required-error').animate({borderColor: 'red'});
+                error = true;
+            }
+            if ($('#system').val().length == 0) {
+                $('#system').addClass('required-error').animate({borderColor: 'red'});
+                error = true;
+            }
+            
+            if (error) {
+                $error_text = $('#admin_edit_error2');
+                $error_text.html('Vennligst fyll ut all informasjon.');
+                if ($error_text.is(':hidden')) {
+                    // Display error-text
+                    $error_text.stop().fadeIn(400);
+                }
+            }
+            else {
+                // Call the method
+                base.admin_edit_submit_settings($(this).serialize(), $('#system').val());
+            }
         }
         else {
             // Change password goes here
@@ -612,6 +638,25 @@ $(document).ready(function () {
         
         // Avoid the form from beging submitted
         return false;
+    });
+    $('#main').on('keyup','#admin_edit_form input',function () {
+        var $that = $(this);
+        var idn = $that[0].id;
+        
+        // Check for the class
+        if ($that.hasClass('required-error')) {
+            // Has the class, check if we can remove it
+            var valu = $that.val();
+            
+            if (idn == 'email') {
+                if (valu.length > 0 && checkemail(valu)) {
+                    $that.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add_dyamic('admin_edit_form1','admin_edit_error1'));
+                }
+            }
+            else if (valu.length > 0) {
+                $that.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add_dyamic('admin_edit_form1','admin_edit_error1'));
+            }
+        }
     });
     $('#main').on('keyup','#admin_edit_form2 input',function () {
         var $that = $(this);
