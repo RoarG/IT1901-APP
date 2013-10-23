@@ -563,7 +563,7 @@ function Base () {
                 if (json.code == 200) {
                     var response = json.response;
                     
-                    // Manipulate the data before parsing
+                    // Vaccine
                     if (response.vaccine == 1) {
                         response.vaccine = 'Ja';
                     }
@@ -571,15 +571,30 @@ function Base () {
                         response.vaccine = 'Nei';
                     }
                     
-                    response.weight = parseInt(response.weight,10).formatNumber(0,',','');
+                    // Status
+                    if (response.alive == 1) {
+                        response.status = '<span style="color: green;">Lever</span>';
+                    }
+                    else {
+                        response.status = '<span style="color: red;">Død</span>';
+                    }
                     
+                    // Weight
+                    response.weight = parseInt(response.weight, 10).formatNumber(0,',','');
+                    
+                    // Birthday
                     var birthday = response.birthday.split('-');
                     response.birthday = parseInt(birthday[2])+'. '+self.months[parseInt(birthday[1])-1]+' '+birthday[0];
                     
+                    // Calculate age using moment.js
+                    response.age = moment([birthday[0], birthday[1], birthday[2]]).fromNow(true);
+                    
+                    // Last updated
                     var last_updated = response.last_updated.split(' ');
                     var last_updated_date = last_updated[0].split('-');
                     response.last_updated = parseInt(last_updated_date[2])+'. '+self.months[parseInt(last_updated_date[1])-1]+' '+last_updated_date[0]+', kl: '+last_updated[1];
                     
+                    // Comment
                     var comment = response.comment;
                     if (comment.length == 0) {
                         response.comment = '<p><i>Ingen kommentar</i></p>';
