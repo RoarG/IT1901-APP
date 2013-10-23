@@ -95,7 +95,7 @@ a {
     width: 583px;
 }
 .block-top {
-    background-image: url('gfx/block-top-bg');
+    background-image: url('gfx/block-top-bg.png');
     background-repeat: repeat-x;
     height: 105px;
     border-top-left-radius: 6px;
