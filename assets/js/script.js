@@ -107,7 +107,7 @@ function check_required_callback_add_dyamic(form,err) { // Check if there are an
 }
 
 //
-// Moment
+// Moment.js
 //
 
 moment.lang('en', {
@@ -359,7 +359,7 @@ $(document).ready(function () {
     });
     $('#main').on('click', '.map-overlay input', function () {
         // Unset map-specifics
-        base.tiggleMapSpecial(false);
+        base.animate.mapSpecial(false);
         
         // Load one sheep
         base.sheep_one($(this).data('id'), 2);

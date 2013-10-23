@@ -39,6 +39,7 @@ function Base () {
     this.queued_ajax = null,
     this.busy = false,
     this.notification_interval = null,
+    this.map_interval = null,
     this.map_objects = {'marker': [], 'infowindow': []},
     this.contact = null,
     this.months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'],
@@ -326,6 +327,12 @@ function Base () {
         },
         mapSpecial : function (mode) {
             $('#nav').animate({marginTop : ((mode)?'-161px':'0px')},400);
+            
+            // Turn fetching off
+            if (!mode) {
+                clearInterval(this.map_interval);
+                console.log('turn fetching off');
+            }
         }
     };
     
@@ -365,15 +372,6 @@ function Base () {
             this.displayingMap = false;
             this.animate.mapSpecial(false);
         }
-    };
-    
-    //
-    //
-    //
-    
-    this.tiggleMapSpecial = function (state) {
-        this.displayingMap = state;
-        this.animate.mapSpecial(state);
     };
     
     //
