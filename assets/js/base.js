@@ -940,6 +940,24 @@ function Base () {
             }
         });
     };
+    this.admin_edit_submit_pw = function (form_data) {
+        var self = this;
+        
+        $.ajax ({
+            url: 'api/user/login?method=put&access_token='+self.token,
+            cache: false,
+            headers: { 'cache-control': 'no-cache' },
+            dataType: 'json',
+            type: 'post',
+            data: form_data,
+            success: function(json) {
+                if (json.code == 200) {               
+                    //
+                }
+            }
+        });
+    };
+    
     //
     // Admin - Alert
     //

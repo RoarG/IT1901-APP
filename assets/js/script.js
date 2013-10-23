@@ -565,6 +565,69 @@ $(document).ready(function () {
         // Load the content
         base.admin_edit();
     });
+    $('#main').on('submit', '#admin_edit_form1, #admin_edit_form2', function () {
+        if (this.id == 'admin_edit_form1') {
+            //
+        }
+        else {
+            // Change password goes here
+            var error = false;
+            if ($('#current_password').val().length < 5) {
+                $('#current_password').addClass('required-error').animate({borderColor: 'red'});
+                error = true;
+            }
+            if ($('#new_password1').val().length < 5) {
+                $('#new_password1').addClass('required-error').animate({borderColor: 'red'});
+                error = true;
+            }
+            if ($('#new_password2').val().length < 5) {
+                $('#new_password2').addClass('required-error').animate({borderColor: 'red'});
+                error = true;
+            }
+            
+            if (error) {
+                $error_text = $('#admin_edit_error2');
+                $error_text.html('Alle passord må være lengre enn 5 tegn.');
+                if ($error_text.is(':hidden')) {
+                    // Display error-text
+                    $error_text.stop().fadeIn(400);
+                }
+            }
+            else {
+                // Check if matches
+                if ($('#new_password1').val() != $('#new_password2').val()) {
+                    $error_text = $('#admin_edit_error2');
+                    $error_text.html('De nye passordene matcher ikke.');
+                    if ($error_text.is(':hidden')) {
+                        // Display error-text
+                        $error_text.stop().fadeIn(400);
+                    }
+                }
+                else {
+                    // Run the ajax-call
+                    base.admin_edit_submit_pw($(this).serialize());
+                }
+            }
+        }
+        
+        // Avoid the form from beging submitted
+        return false;
+    });
+    $('#main').on('keyup','#admin_edit_form2 input',function () {
+        var $that = $(this);
+        var idn = $that[0].id;
+        
+        // Check for the class
+        if ($that.hasClass('required-error')) {
+            // Has the class, check if we can remove it
+            var valu = $that.val();
+            
+            // Normal case
+            if (valu.length > 5) {
+                $that.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add_dyamic('admin_edit_form2','admin_edit_error2'));
+            }
+        }
+    });
     
     //
     // Admin - Alert
