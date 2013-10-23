@@ -31,7 +31,8 @@
     <!-- Libraries START -->
     <script type="text/javascript" src="assets/js/lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="assets/js/lib/jquery-ui-1.10.3.min.js"></script>
-    <script type="text/javascript" src="assets/js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/underscore-1.5.2.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/moment-2.3.1.min.js"></script>
     <!-- Libraries END -->
     
     <!-- Plugins START -->

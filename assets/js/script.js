@@ -107,6 +107,28 @@ function check_required_callback_add_dyamic(form,err) { // Check if there are an
 }
 
 //
+// Moment
+//
+
+moment.lang('en', {
+    relativeTime : {
+        future: "om %s",
+        past:   "%s siden",
+        s:  "sekunder",
+        m:  "en minutt",
+        mm: "%d minutter",
+        h:  "en time",
+        hh: "%d timer",
+        d:  "en dag",
+        dd: "%d dager",
+        M:  "en måned",
+        MM: "%d måneder",
+        y:  "et år",
+        yy: "%d år"
+    }
+});
+
+//
 // jQuery
 //
 
