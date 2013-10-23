@@ -594,6 +594,8 @@ ul.home-list .image-overlay {
 .dropdown-body ul {
     width: 556px;
     background-color: #1C3F93;
+    border-bottom-left-radius: 6px 6px;
+    border-bottom-right-radius: 6px 6px;
 }
 .dropdown-body ul li {
     display: block;
