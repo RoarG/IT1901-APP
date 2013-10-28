@@ -39,7 +39,6 @@ a {
 #logo {
     height: 161px;
     width: 640px;
-    background-color: green;
 }
 
 /*
@@ -657,3 +656,28 @@ ul.home-list .image-overlay {
 #notification-list li:after {
     content: "";
 }
+
+/*
+    Icons
+*/
+
+.block-icon {
+    width: 65px;
+    height: 65px;
+    position: absolute;
+    top: 21px;
+    left: 27px;
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+#block-icon-sheep { background-image: url('gfx/icons/sheep.png'); }
+#block-icon-noted { background-image: url('gfx/icons/noted.png'); }
+#block-icon-settings { background-image: url('gfx/icons/settings.png'); }
+#block-icon-login { background-image: url('gfx/icons/login.png'); }
+#block-icon-note { background-image: url('gfx/icons/note.png'); }
+#block-icon-edit { background-image: url('gfx/icons/edit.png'); }
+#block-icon-notification { background-image: url('gfx/icons/notification.png'); }
+#block-icon-check { background-image: url('gfx/icons/check.png'); }
+#block-icon-warning { background-image: url('gfx/icons/warning.png'); }
+#block-icon-letter { background-image: url('gfx/icons/letter.png'); }
+#block-icon-log { background-image: url('gfx/icons/log.png'); }

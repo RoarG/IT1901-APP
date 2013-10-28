@@ -46,7 +46,7 @@
 </head>
 <body>
 <div id="wrapper">
-    <div id="logo"></div>
+    <div id="logo"><img src="assets/css/gfx/logo-head.jpg" alt="Sheep Locator" /></div>
     <div id="nav">
         <div id="back">
             <h2>Tilbake</h2>
@@ -70,7 +70,7 @@
     </div>
     <div id="notification-window-overlay"></div>
     <div id="notification-window">
-        <div id="notifications-top">
+        <div id="notifications-top"><div class="block-icon" id="block-icon-notification"></div>
             <h2>Notifications<span> (0)</span></h2>
         </div>
         <div id="notifications-body" data-hasinitialvalue="0">
