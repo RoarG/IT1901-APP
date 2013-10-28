@@ -904,6 +904,12 @@ function Base () {
                                                 // Reference to current sheep
                                                 var current_sheep = json.response.sheep[i];
                                                 
+                                                 // Konverterer siste oppdatering
+                                                var last_updated = current_sheep.last_updated.split(' ');
+                                                var last_updated_date = last_updated[0].split('-');
+                                                var last_updated_pretty = parseInt(last_updated_date[2])+'. '+self.months[parseInt(last_updated_date[1])-1]+' '+last_updated_date[0]+', kl: '+last_updated[1];
+                            
+                                                
                                                 // Update position
                                                 self.map_objects.marker[i].setPosition(new google.maps.LatLng(current_sheep.lat, current_sheep.lng));
                                                 
