@@ -918,7 +918,11 @@ function Base () {
                                                 
                                                 // Update marker-image
                                                 var marker_image = 'marker_blue.png';
-                                                if (current_sheep.alive == '0') {
+                                                if (sheep != null && sheep == current_sheep.id) {
+                                                    // The centered sheep should be displayed as green
+                                                    marker_image = 'marker_green.png';
+                                                }
+                                                else if (current_sheep.alive == '0') {
                                                     marker_image = 'marker_red.png';
                                                 }
                                                 
