@@ -141,9 +141,6 @@ function Base () {
                                 
                                 // Update notification-number in overlay
                                 $('#notifications-top span').html(' ('+ new_notification_value +')');
-                                
-                                // Fetch the new notifications and store them in the popup
-                                self.notification_fetch_dropdown();
                             }
                         }
                         else {
@@ -274,11 +271,11 @@ function Base () {
                         }
                     }
                     
-                    $('#notifications-all .notification').each(function () {
+                    $('.block-body #notifications-all .notification').each(function () {
                         var $that = $(this);
                         var that_height = $that.outerHeight();
                         var that_width = $that.outerWidth()
-                        if ($that.hasClass('.sheep-is-read-1')) {
+                        if ($that.hasClass('sheep-is-read-1')) {
                             $('.is-read-indicator, .is-read-indicator img', $that).css({
                                 height: that_height,
                                 width: that_width
