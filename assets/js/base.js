@@ -193,7 +193,7 @@ function Base () {
                         var $that = $(this);
                         var that_height = $that.outerHeight();
                         var that_width = $that.outerWidth()
-                        if ($that.hasClass('.sheep-is-read-1')) {
+                        if ($that.hasClass('sheep-is-read-1')) {
                             $('.is-read-indicator, .is-read-indicator img', $that).css({
                                 height: that_height,
                                 width: that_width
