@@ -93,6 +93,10 @@ a {
     padding-top: 25px;
     width: 583px;
 }
+.block.block-last {
+    margin-bottom: 30px;
+    padding-bottom: 0px;
+}
 .block-top {
     background-image: url('gfx/block-top-bg.png');
     background-repeat: repeat-x;
