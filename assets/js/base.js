@@ -728,8 +728,11 @@ function Base () {
                     // Parse the template
                     var template = _.template(json.tpl.sheep_single_edit.base, json.response);
                     
+                    // Find the current depth
+                    var idn = $('#main > .active')[0].id.split('-');
+                    
                     // Run the animation
-                    self.animate.slideLeft(template, 4, function () {
+                    self.animate.slideLeft(template, (parseInt(idn[1]) + 1), function () {
                         // Resize
                         self.animate.resizeMain();
                         
