@@ -14,6 +14,7 @@
     <!-- Meta / Mobileapp END -->
     
     <!-- iPhone icons START -->
+    <link rel="apple-touch-startup-image" href="assets/css/icons/splash.png" />  
     <link rel="apple-touch-icon" href="assets/css/icons/icon-57-precomposed.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="assets/css/icons/icon-72-precomposed.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="assets/css/icons/icon-114-precomposed.png" />
