@@ -763,6 +763,10 @@ function Base () {
                     // Display the new sheep
                     self.sheep_one(json.response.id);
                 }
+                else if (code == 183) {
+                    // Chip already in use
+                    alert('Denne chip-iden er allerede i bruk på en annen sau i systemet.');
+                }
                 else if (code == 121) {
                     // Kick out of the system
                     self.kick_out();
@@ -989,6 +993,10 @@ function Base () {
                     
                     // Display the new sheep
                     self.sheep_one(json.response.id);
+                }
+                else if (code == 183) {
+                    // Code already in use
+                    alert('Denne chip-iden er allerede i bruk på en annen sau i systemet.');
                 }
                 else if (code == 121) {
                     // Kick out of the system
