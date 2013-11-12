@@ -468,18 +468,11 @@ $(document).ready(function () {
             $('#weight').addClass('required-error').animate({borderColor: 'red'});
         }
         
-        // Validate lat
-        var lat = $('#lat').val();
-        if (lat.length < 2 || !is_numeric(lat)) {
+        // Validate chip
+        var chip = $('#chip').val();
+        if (chip.length < 2 || !is_numeric(chip)) {
             error = true;
-            $('#lat').addClass('required-error').animate({borderColor: 'red'});
-        }
-        
-        // Validate lng
-        var lng = $('#lng').val();
-        if (lng.length < 2 || !is_numeric(lng)) {
-            error = true;
-            $('#lng').addClass('required-error').animate({borderColor: 'red'});
+            $('#chip').addClass('required-error').animate({borderColor: 'red'});
         }
         
         if (error == true) {
@@ -525,7 +518,7 @@ $(document).ready(function () {
                     $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add);
                 }
             }
-            else if (idn == 'identification' || idn == 'weight' || idn == 'lat' || idn == 'lng') {
+            else if (idn == 'identification' || idn == 'weight' || idn == 'chip') {
                 // Check for numeric values
                 if (valu.length > 0 && is_numeric(valu)) {
                     $check_obj.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add);
