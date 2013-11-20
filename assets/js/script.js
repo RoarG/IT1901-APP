@@ -556,15 +556,15 @@ $(document).ready(function () {
         if (this.id == 'admin_edit_form1') {
             // System/user-info goes here
             var error = false;
-            if ($('#name').val().length == 0) {
+            if ($('#name').val().length < 2) {
                 $('#name').addClass('required-error').animate({borderColor: 'red'});
                 error = true;
             }
-            if ($('#email').val().length == 0 || !checkemail($('#email').val())) {
+            if ($('#email').val().length  < 2 || !checkemail($('#email').val())) {
                 $('#email').addClass('required-error').animate({borderColor: 'red'});
                 error = true;
             }
-            if ($('#system').val().length == 0) {
+            if ($('#system').val().length  < 2) {
                 $('#system').addClass('required-error').animate({borderColor: 'red'});
                 error = true;
             }
@@ -626,7 +626,7 @@ $(document).ready(function () {
         // Avoid the form from beging submitted
         return false;
     });
-    $('#main').on('keyup','#admin_edit_form input',function () {
+    $('#main').on('keyup','#admin_edit_form1 input',function () {
         var $that = $(this);
         var idn = $that[0].id;
         
@@ -659,6 +659,20 @@ $(document).ready(function () {
                 $that.removeClass('required-error').animate({borderColor: '#8CC7ED'},400,check_required_callback_add_dyamic('admin_edit_form2','admin_edit_error2'));
             }
         }
+    });
+    $('#main').on('focus','#admin_edit_form1 input, #admin_edit_form2 input',function () {
+        // Show helptext
+        $('#'+this.id+'_help').stop().slideDown(400,function () {
+            // Resize!
+            base.animate.resizeMain();
+        });
+    });
+    $('#main').on('blur','#admin_edit_form1 input, #admin_edit_form2 input',function () {
+        // Hide helptext
+        $('#'+this.id+'_help').stop().slideUp(400,function () {
+            // Resize!
+            base.animate.resizeMain();
+        });
     });
     
     //
