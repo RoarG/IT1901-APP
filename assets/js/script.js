@@ -179,13 +179,7 @@ $(document).ready(function () {
         if ($notification_window.is(':hidden')) {
             $('#notification-window-overlay').fadeIn(400);
             $notification_window.show();
-            
-            // Check if the dropdown has any value at all
-            if ($('#notifications-body').data('hasinitialvalue') == '0') {
-                // Load initial values
-                base.notification_fetch_dropdown();
-            }
-            
+            base.notification_fetch_dropdown();
         }
         else {
             $('#notification-window-overlay').fadeOut(400);
