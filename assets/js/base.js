@@ -111,6 +111,9 @@ function Base () {
                     // Alert, telling the user he was kicked out
                     alert('Noe gikk galt. Du har blitt logget ut av systemet. Dette kan være fordi brukeren din ble logget inn et annet sted.');
                 });
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     }
@@ -147,6 +150,9 @@ function Base () {
                             // Kick out of the system
                             self.kick_out();
                         }
+                    },
+                    error: function () {
+                        alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
                     }
                 });
             },20000);
@@ -211,6 +217,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -293,6 +302,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -450,6 +462,9 @@ function Base () {
                 dataType: 'json',
                 success: function(json) {
                     self.animate.fadeIn('#main', json.tpl.login.base);
+                },
+                error: function () {
+                    alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
                 }
             });
         }
@@ -482,6 +497,9 @@ function Base () {
                     else {
                         self.animate.fadeIn('#main', json.tpl.login.base, 1);
                     }
+                },
+                error: function () {
+                    alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
                 }
             });
         }
@@ -537,6 +555,13 @@ function Base () {
                         self.busy = false;
                     });
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
+                $('#login_sbmt').stop().fadeIn(400);
+                $('#login_loader').stop().fadeOut(400, function () {
+                    self.busy = false;
+                });
             }
         });
     };
@@ -571,6 +596,9 @@ function Base () {
                 
                 // Hide back-button
                 $('#back').hide();
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -608,6 +636,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -689,6 +720,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -709,6 +743,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     }
@@ -744,6 +781,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     }
@@ -775,6 +815,9 @@ function Base () {
                     // Return error-message!
                     alert('Noe gikk galt. Systemet returnerte feilkode #'+code+' og teksten '+json.msg);
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     }
@@ -947,6 +990,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -972,6 +1018,9 @@ function Base () {
                     // Scroll to top of page
                     $('html, body').scrollTop(161);
                 });
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     }
@@ -1006,6 +1055,9 @@ function Base () {
                     // Return error-message!
                     alert('Noe gikk galt. Systemet returnerte feilkode #'+code+' og teksten '+json.msg);
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     }
@@ -1039,6 +1091,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -1082,6 +1137,9 @@ function Base () {
                         $error_text.stop().fadeIn(400);
                     }
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -1119,6 +1177,9 @@ function Base () {
                         $error_text.stop().fadeIn(400);
                     }
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     }
@@ -1159,6 +1220,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -1205,6 +1269,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -1237,6 +1304,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
@@ -1299,6 +1369,9 @@ function Base () {
                     // Kick out of the system
                     self.kick_out();
                 }
+            },
+            error: function () {
+                alert('Dette krever nettverkstilgang. Koble til Wifi, 3G eller GSM og prøv igjen.');
             }
         });
     };
